@@ -25,8 +25,6 @@ function getCreateHandles() {
 function get() {
   createForm.createHiitCard.addEventListener('click', () => {
     const customHiitCards = document.querySelector('.custom-hiit-card');
-    console.log(customHiitCards);
-
     showScreen('createhiit');
   });
   updateAddExerciseBtn();

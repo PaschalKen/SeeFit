@@ -32,6 +32,7 @@ function getTimerHandles() {
   timerElem.stateInfo = document.querySelector('.state-info');
   timerElem.restartButton = document.querySelector('.restart');
   timerElem.stateInfo = document.querySelector('.state-info');
+  timerElem.progressBar = document.querySelector('.timer-progress-holder');
 }
 
 // Timer running function
@@ -94,6 +95,7 @@ function moveToNextActivity(currentExercise) {
     const totalTime = convertStoM(totalHiitDuration);
     hiitElapsedTime += increment;
     exerciseElapsedTime += increment;
+      updateProgressBar();
     timerElem.doneTime.textContent = convertStoM(hiitElapsedTime);
     timerElem.totalTime.textContent = totalTime;
     timerElem.timer.textContent = convertStoM(remainingTime);
@@ -109,6 +111,13 @@ function moveToNextActivity(currentExercise) {
     timerElem.durationMeter.value = (hiitElapsedTime / totalHiitDuration) * 100;
   }
 }
+
+function updateProgressBar() {
+  const progress = (hiitElapsedTime / totalHiitDuration) * 100;
+  console.log(hiitElapsedTime, progress);
+  timerElem.progressBar.style.setProperty('--progress', `${progress}%`);
+}
+
 
 // Function to calculate total HIIT duration
 function calculateTotalHiitDuration(Hiit) {
@@ -179,6 +188,7 @@ hiitElapsedTime = 0;
 
 // Function to start the timer
 export async function start(clickedHiit) {
+  
   getTimerHandles();
   showScreen('PerformHiit');
   
