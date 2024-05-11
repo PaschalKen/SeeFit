@@ -290,6 +290,7 @@ main .screen article .current-exercise {
   color: white;
   text-align: center;
   margin: 1em 0 1em 0;
+  min-height: 6em;
 }
 
 main .screen article .exercise-section {
@@ -319,7 +320,6 @@ main .screen article .exercise-section .next-exercise {
 
 main .screen article .perform-hiit .timer-buttons {
   text-align: center;
-  margin: 1em 0 1em 0;
 }
 
 main .screen article .perform-hiit .timer-buttons .pause,
@@ -352,39 +352,12 @@ main .screen article .perform-hiit .timer-buttons .restart {
   padding: 0 0 1.5em 2.3em;
 }
 
-main .screen article .perform-hiit .overall-Duration-measure {
-  color: white;
-  text-align: center;
-}
-
-main
-  .screen
-  article
-  .perform-hiit
-  .overall-Duration-measure
-  .overall-hiit-timer {
-  display: flex;
-}
-
-main
-  .screen
-  article
-  .perform-hiit
-  .overall-Duration-measure
-  .overall-hiit-timer
-  p {
-  margin: auto;
-}
-
-main .screen article .perform-hiit .overall-Duration-measure meter {
-  width: 15em;
-}
-
 main .screen article .perform-hiit .timer-holder {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 2em;
 }
 
 main .screen article .perform-hiit .timer-holder .timer-progress-holder {
@@ -402,17 +375,20 @@ main .screen article .perform-hiit .timer-holder .timer-progress-holder {
 
 main .screen article .perform-hiit .timer {
     border-radius: 50%;
-    height: 4em;
+    height: 4.5em;
     width: 4.5em;
     text-align: center;
     box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
-    padding-top: 0.5em;
     color: white;
     margin: 0em 0 0em -4px;
     font-size: 3em;
-        z-index: 999;
+    z-index: 999;
+    top: 5%;
     position: absolute;
     background-color: rgb(11, 15, 22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .perform-hiit .state-info {
@@ -462,7 +438,6 @@ textarea,
   height: 3em;
   border-radius: 2em;
   margin-bottom: 1em;
-  /* margin-left: auto; */
   margin-left: 1em;
 }
 
