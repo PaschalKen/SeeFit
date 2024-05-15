@@ -4,11 +4,10 @@
         <h5 class="next-exercise">Next: </h5>
     </section>
         <article class = "current-exercise-description"></article>
-        <section class=timer-holder>
-        <section class=timer-progress-holder>
-    <h1 class="timer">00:00</h1>
-        </section>
-        
+    <section class=timer-holder>
+    <section class=timer-progress-holder>
+        <h1 class="timer">00:00</h1>
+    </section>
     </section>
     <h3 class="state-info">
     start

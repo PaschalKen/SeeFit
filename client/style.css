@@ -171,9 +171,10 @@ main .screen section .hiit-title {
 main .screen section .hiit-info {
   display: flex;
   flex-direction: row;
+      column-gap: 10%;
 }
 
-main .screen section .hiit-info .hiit-duration {
+main .screen section .hiit-info .delete-Icon {
   margin: 0 0 0 30%;
 }
 
@@ -284,13 +285,13 @@ main .screen article .current-exercise-description {
   color: white;
   text-align: center;
   margin: 1em 0 1em 0;
+    min-height: 6em;
 }
 
 main .screen article .current-exercise {
   color: white;
   text-align: center;
   margin: 1em 0 1em 0;
-  min-height: 6em;
 }
 
 main .screen article .exercise-section {
@@ -316,6 +317,7 @@ main .screen article .exercise-section .next-exercise {
   padding-top: 1.8em;
   margin-left: auto;
   width: 10em;
+  min-height: 50px;
 }
 
 main .screen article .perform-hiit .timer-buttons {

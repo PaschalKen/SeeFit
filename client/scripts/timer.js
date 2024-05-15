@@ -15,7 +15,7 @@ let pausedState = {
 
 const timerElem = {};  
 
-const increment = 15;
+const increment = 1;
 
 function getTimerHandles() {
   timerElem.currentExercise = document.querySelector('.current-exercise');
@@ -24,7 +24,6 @@ function getTimerHandles() {
     '.current-exercise-description'
   );
   timerElem.timer = document.querySelector('.timer');
-  timerElem.durationMeter = document.querySelector('.duration-meter');
   timerElem.pauseButton = document.querySelector('.pause');
   timerElem.playButton = document.querySelector('.play');
   timerElem.stateInfo = document.querySelector('.state-info');
@@ -90,7 +89,6 @@ function moveToNextActivity(currentExercise) {
     currentExerciseIndex++;
     exerciseElapsedTime = 0;
   } else {
-    const totalTime = convertStoM(totalHiitDuration);
     hiitElapsedTime += increment;
     exerciseElapsedTime += increment;
       updateProgressBar();
@@ -103,8 +101,6 @@ function moveToNextActivity(currentExercise) {
       timerElem.currentExercise.textContent = currentExercise.name;
       timerElem.exerciseDescription.textContent = currentExercise.description;
     }
-
-    timerElem.durationMeter.value = (hiitElapsedTime / totalHiitDuration) * 100;
   }
 }
 

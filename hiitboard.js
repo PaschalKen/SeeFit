@@ -49,7 +49,7 @@ export async function addExercise(
 
 export async function deleteHiit(id) {
     const db = await dbConn;
-    return db.run('DELETE FROM Hiits WHERE id = ?', id);  
+    return db.run('DELETE FROM Hiits WHERE hiits_id = ?', id);  
 }
 
 export async function listExercises() {

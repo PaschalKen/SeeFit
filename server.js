@@ -48,10 +48,12 @@ async function getExercise(req, res) {
   res.json(await hb.listExercises());
 }
 
+async function handleDeleteHiit(req, res) {
+  await hb.deleteHiit(req.params.id);
+  res.status(204).send('will delete');
+}
 
-
-
-// app.get('/hiits/:id', getHiit);
+app.delete('/hiits/:id', handleDeleteHiit);
 app.get('/hiits', getHiits);
 app.post('/hiits', express.json(), postHiit);
 app.post('/exercises', express.json(), postExercise);

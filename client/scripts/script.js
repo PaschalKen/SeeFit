@@ -6,6 +6,8 @@ import { start } from './timer.js';
 
 import { initi } from './createhiit.js';
 
+import { deleteHiit } from './deletehiit.js';
+
 const pages = [
   {
     screen: 'Default',
@@ -261,18 +263,15 @@ async function getAllHiits() {
   }
 }
 
-
-
 async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
-  setTimeout(() => {
+    setTimeout(() => {
     const customHiitCards = document.querySelector('.custom-hiit-card');
     customHiitCards.innerHTML = '';
   }, 10000);
 
   // Clear existing HIITs
   defaultHiitCards.innerHTML = '';
-  
 
   for (const hiit of hiits) {
     const { duration, exerciseCount } = await calcHiitInfo(hiit.hiits_id);
@@ -288,15 +287,36 @@ async function populateHiitCards(hiits) {
 
     const noOfExercises = document.createElement('p');
     noOfExercises.classList.add('no-of-exercises');
-    noOfExercises.textContent = `0${exerciseCount} Exercises`;
+    noOfExercises.textContent = `0${exerciseCount} Exercises | ${duration} Mins`;
 
-    const hiitDuration = document.createElement('p');
-    hiitDuration.classList.add('hiit-duration');
-    hiitDuration.textContent = `${duration} Mins`;
+    const deleteIcon = document.createElement('button');
+    deleteIcon.classList.add('delete-icon');
+    
+    // Append SVG icon
+    const svgIcon = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'svg'
+    );
+    svgIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svgIcon.setAttribute('height', '24px');
+    svgIcon.setAttribute('viewBox', '0 -960 960 960');
+    svgIcon.setAttribute('width', '24px');
+    svgIcon.setAttribute('fill', '#e8eaed');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute(
+      'd',
+      'M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'
+    );
+    svgIcon.appendChild(path);
+
+    svgIcon.addEventListener('click', function () {
+      deleteHiit(hiit.hiits_id);
+    }
+    );
 
     section.append(h3);
     hiitInfo.append(noOfExercises);
-    hiitInfo.append(hiitDuration);
+    
     section.append(hiitInfo);
     section.addEventListener('click', () =>
       buildHiitExercisePage(hiit.hiits_id)
@@ -309,15 +329,15 @@ async function populateHiitCards(hiits) {
       setTimeout(() => {
 const customHiitCards = document.querySelector('.custom-hiit-card');
       customHiitCards.append(section);
+      hiitInfo.append(deleteIcon);
+      deleteIcon.append(svgIcon);
       }, 10000);
-    }
   }
-  initi();
+}
+ initi();
 }
 
-
-
-async function buildHiitExercisePage(clickedHiit) {
+export async function buildHiitExercisePage(clickedHiit) {
   document.querySelector('.hiit-exercises').innerHTML = '';
   showScreen('Hiit');
   const hiits = await getAllHiits();
@@ -325,6 +345,7 @@ async function buildHiitExercisePage(clickedHiit) {
 
   // Find the clicked HIIT object
   const clickedHiitObj = hiits.find((hiit) => hiit.hiits_id === clickedHiit);
+  
 
   const hiitTitle = document.querySelector('.hiitpage-title');
   hiitTitle.textContent = clickedHiitObj.name;
@@ -431,6 +452,7 @@ async function buildHiitExercisePage(clickedHiit) {
 
 
   document.querySelector('.hiit-exercises').append(startHiitBtn);
+  return clickedHiitObj.hiits_id;
 }
 
 async function setup() {
