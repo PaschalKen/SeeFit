@@ -1,19 +1,25 @@
-import { getAllExercises, showScreen, convertStoMs } from './script.js';
+import {
+  getAllExercises,
+  showScreen,
+  buildHiitExercisePage,
+} from './script.js';
 
 // Global variables
-let exercisesArray = []; 
+let exercisesArray = [];
 let currentExerciseIndex = 0;
 let exerciseElapsedTime = 0;
 let hiitElapsedTime = 0;
 let totalHiitDuration = 0;
 let intervalId = null;
-let restElapsedTime = 0;
+
 let pausedState = {
   elapsedTime: 0,
   currentExerciseIndex: 0,
 };
 
-const timerElem = {};  
+let totalhiits = 0;
+
+const timerElem = {};
 
 const increment = 1;
 
@@ -34,13 +40,9 @@ function getTimerHandles() {
 
 // Timer running function
 function timerRunning() {
-  // Check if current exercise index is out of bounds
-  if (
-    currentExerciseIndex < 0 ||
-    currentExerciseIndex >= exercisesArray.length
-  ) {
-    clearInterval(intervalId);
-    return;
+  // Check if hiit is completed
+  if (hiitElapsedTime === totalHiitDuration) {
+    handleCompleteHiit();
   }
 
   const currentExercise = exercisesArray[currentExerciseIndex];
@@ -82,18 +84,26 @@ function moveToNextActivity(currentExercise) {
     exerciseElapsedTime >= actualExerciseDuration
       ? actualRestDuration
       : actualExerciseDuration;
-  const totalDuration = actualExerciseDuration + actualRestDuration;
-  const remainingTime = currentDuration - (exerciseElapsedTime % totalDuration);
+  const totalExerciseDuration = actualExerciseDuration + actualRestDuration;
+  const remainingTime =
+    currentDuration - (exerciseElapsedTime % currentDuration);
 
-  if (exerciseElapsedTime >= totalDuration) {
+  if (exerciseElapsedTime === totalExerciseDuration) {
     currentExerciseIndex++;
     exerciseElapsedTime = 0;
   } else {
     hiitElapsedTime += increment;
     exerciseElapsedTime += increment;
-      updateProgressBar();
-    timerElem.timer.textContent = convertStoM(remainingTime);
+    updateProgressBar();
 
+    timerElem.timer.textContent = convertStoM(remainingTime);
+    1;
+    console.log(
+      'exerciseElapsedTime',
+      exerciseElapsedTime,
+      'timer content',
+      convertStoM(remainingTime)
+    );
     if (exerciseElapsedTime >= actualExerciseDuration) {
       timerElem.currentExercise.textContent = 'Rest';
       timerElem.exerciseDescription.textContent = `Take a ${actualRestDuration} Second rest`;
@@ -104,16 +114,44 @@ function moveToNextActivity(currentExercise) {
   }
 }
 
+// Function to update the progress bar
 function updateProgressBar() {
   const progress = (hiitElapsedTime / totalHiitDuration) * 100;
   timerElem.progressBar.style.setProperty('--progress', `${progress}%`);
 }
 
+export async function getCompletedHiitName() {
+  const name = await buildHiitExercisePage();
+  const card = document.querySelector('.card');
+  card.addEventListener('click', () => {
+    console.log('name');
+  });
+  return name;
+}
+
+// Function to reset the timer
+function resetTimer() {
+  timerElem.timer.textContent = '00:00';
+}
+
+// Function to count completed HIITs
+function countCompletedHiits() {
+  totalhiits += 1;
+  console.log('completed', totalhiits);
+}
+
+// Function to handle the completion of a HIIT
+export function handleCompleteHiit() {
+  resetTimer();
+  countCompletedHiits();
+  clearInterval(intervalId);
+}
 
 // Function to calculate total HIIT duration
 function calculateTotalHiitDuration(Hiit) {
   totalHiitDuration = Hiit.reduce(
-    (total, exercise) => total + exercise.exercise_duration + exercise.rest_duration,
+    (total, exercise) =>
+      total + exercise.exercise_duration + exercise.rest_duration,
     0
   );
 }
@@ -169,9 +207,9 @@ function stopTimer() {
   clearInterval(intervalId);
 
   // Reset timer variables
-currentExerciseIndex = 0;
-exerciseElapsedTime = 0;
-hiitElapsedTime = 0;
+  currentExerciseIndex = 0;
+  exerciseElapsedTime = 0;
+  hiitElapsedTime = 0;
 
   // Start the timer again
   intervalId = setInterval(timerRunning, 1000);
@@ -179,10 +217,9 @@ hiitElapsedTime = 0;
 
 // Function to start the timer
 export async function start(clickedHiit) {
-  
   getTimerHandles();
   showScreen('PerformHiit');
-  
+
   const exercises = await getAllExercises();
   const filteredExercises = exercises.filter(
     (exercise) => exercise.hiit_id === clickedHiit

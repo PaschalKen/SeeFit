@@ -1,5 +1,18 @@
-<section class="card savedHiits">
-<h3>Your Favourite Hiits Will Appear Here</h3>
+<section class="savedHiits">
+    <section class="records-holder">
+        <section>
+            <h3 class="total-time">Total Time</h3>
+        </section>
+        <section class="">
+            <h3 class="total-hiits">Total Hiits</h3>
+            <h3 class="total-exercises">Total Exercises</h3>
+        </section>
+    </section>
+    <section class="completed-hiits">
+            <h3>Finished Hiits</h3>
+
+    </section>
+
 </section>
 
 

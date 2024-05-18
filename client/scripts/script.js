@@ -263,6 +263,7 @@ async function getAllHiits() {
   }
 }
 
+
 async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
     setTimeout(() => {
@@ -277,11 +278,11 @@ async function populateHiitCards(hiits) {
     const { duration, exerciseCount } = await calcHiitInfo(hiit.hiits_id);
 
     const section = document.createElement('section');
-    section.classList.add('card');
+    
     const h3 = document.createElement('h3');
     h3.classList.add('hiit-title');
     h3.textContent = hiit.name;
-
+    section.classList.add('card', hiit.name.replace(/\s+/g, ''));
     const hiitInfo = document.createElement('section');
     hiitInfo.classList.add('hiit-info');
 
@@ -309,18 +310,21 @@ async function populateHiitCards(hiits) {
     );
     svgIcon.appendChild(path);
 
-    svgIcon.addEventListener('click', function () {
-      deleteHiit(hiit.hiits_id);
-    }
-    );
-
     section.append(h3);
     hiitInfo.append(noOfExercises);
     
     section.append(hiitInfo);
-    section.addEventListener('click', () =>
-      buildHiitExercisePage(hiit.hiits_id)
+    section.addEventListener(
+      'click',
+      () => buildHiitExercisePage(hiit.hiits_id)
     );
+
+        svgIcon.addEventListener('click', function (event) {
+          deleteHiit(hiit.hiits_id);
+          removeHiitBeforeDelete(hiit, event);
+          showScreen('Custom');
+          return;
+        });
 
     // Determine where to append the HIIT card based on its type
     if (hiit.type === 'default') {
@@ -337,6 +341,13 @@ const customHiitCards = document.querySelector('.custom-hiit-card');
  initi();
 }
 
+function removeHiitBeforeDelete(hiit, event) {
+  const toBeDeleted = document.querySelector(`.${hiit.name.replace(/\s+/g, '')}`);
+  event.stopPropagation();
+  toBeDeleted.remove();
+}
+
+
 export async function buildHiitExercisePage(clickedHiit) {
   document.querySelector('.hiit-exercises').innerHTML = '';
   showScreen('Hiit');
@@ -345,7 +356,6 @@ export async function buildHiitExercisePage(clickedHiit) {
 
   // Find the clicked HIIT object
   const clickedHiitObj = hiits.find((hiit) => hiit.hiits_id === clickedHiit);
-  
 
   const hiitTitle = document.querySelector('.hiitpage-title');
   hiitTitle.textContent = clickedHiitObj.name;
@@ -358,6 +368,7 @@ export async function buildHiitExercisePage(clickedHiit) {
 
   const hiitDuration = document.querySelector('.hiitsDuration');
   hiitDuration.textContent = `${duration} Mins`;
+
 
   const exercise = await getAllExercises();
   const filteredExercises = exercise.filter(
@@ -452,7 +463,8 @@ export async function buildHiitExercisePage(clickedHiit) {
 
 
   document.querySelector('.hiit-exercises').append(startHiitBtn);
-  return clickedHiitObj.hiits_id;
+const hiitName = clickedHiitObj.name;
+  return hiitName;
 }
 
 async function setup() {

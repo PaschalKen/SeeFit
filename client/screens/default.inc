@@ -1,4 +1,3 @@
-
 <section class='default-hiit-card'>
 
 </section>

@@ -5,6 +5,7 @@ import express from 'express';
 import * as url from 'url';
 
 const app = express();
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 app.use(express.static('client', { extensions: ['html'] }));
@@ -18,16 +19,6 @@ async function getHiits(req, res) {
     res.status(500).send('Internal Server Error');
   }
 }
-
-
-// async function getHiit(req, res) {
-//   const hiit = await hb.listHiits(req.params.id);
-//   if (hiit) {
-//     res.json(hiit);
-//   } else {
-//     res.status(404).send('Not found');
-//   }
-// }
 
 async function postHiit(req, res) {
   const hiit = await hb.addHiit(
@@ -58,7 +49,6 @@ app.get('/hiits', getHiits);
 app.post('/hiits', express.json(), postHiit);
 app.post('/exercises', express.json(), postExercise);
 app.get('/exercise', getExercise);
-
 app.get('/app/*/', (req, res) => {
   res.sendFile(`${__dirname}/client/index.html`);
 });

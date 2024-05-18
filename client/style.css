@@ -67,8 +67,6 @@ header {
 
 header .sectionBtns {
   height: 2.5em;
-  /* display: flex;
-  flex-direction: row; */
   align-items: center;
   justify-content: center;
   width: 90vw;
@@ -140,6 +138,18 @@ main .screen article .custom-hiit-card{
   grid-gap: 20px;
 }
 
+main .screen article .custom-hiit-card section .hiit-info .delete-icon {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 6.5px;
+  z-index: 999;
+
+}
+
+main .screen article .custom-hiit-card section .hiit-info .delete-icon:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 main .screen .card {
   padding: 2em;
   height: 12rem;
@@ -148,6 +158,7 @@ main .screen .card {
   margin: 3%;
   box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
   color: #fff;
+  position: relative;
 }
 
 main .screen .card:hover {
@@ -266,15 +277,12 @@ main .screen article .exercise-page .start-hiit {
   align-items: center;
   border-radius: 2em;
   box-shadow: none;
-  
-
-      position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-
-    box-shadow: -5em 12em 3em 10em rgb(11, 15, 22);
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  box-shadow: -5em 12em 3em 10em rgb(11, 15, 22);
 }
 
 main .screen article .exercise-page .start-hiit:hover {
@@ -303,12 +311,56 @@ main .screen article .exercise-section {
   padding: 1em;
 }
 
-main .screen article .createHiitCard,
-main .screen article .savedHiits {
+main .screen article .createHiitCard {
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+main .screen article .savedHiits {
+  color: white;
+}
+
+main .screen article .savedHiits .records-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 3em;
+}
+
+main .screen article .savedHiits .records-holder section {
+    display: flex;
+    column-gap: 3em;
+}
+
+main .screen article .savedHiits .records-holder section .total-time {
+    background-color: grey;
+    height: 9em;
+    width: 9em;
+    border-radius: 50%;
+        text-align: center;
+        border: 5px solid yellow;
+}
+
+main .screen article .savedHiits .records-holder section .total-exercises {
+    background-color: grey;
+    height: 7em;
+    width: 7em;
+    border-radius: 50%;
+        text-align: center;
+        border: 5px solid purple;
+
+}
+
+main .screen article .savedHiits .records-holder section .total-hiits {
+    background-color: grey;
+    height: 7em;
+    width: 7em;
+    border-radius: 50%;
+        text-align: center;
+        border: 5px solid blue;
+
 }
 
 main .screen article .exercise-section .next-exercise {
