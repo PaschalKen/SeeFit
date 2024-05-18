@@ -263,6 +263,7 @@ async function getAllHiits() {
   }
 }
 
+import { removeHiitBeforeDelete } from './deletehiit.js';
 
 async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
@@ -320,7 +321,7 @@ async function populateHiitCards(hiits) {
     );
 
         svgIcon.addEventListener('click', function (event) {
-          deleteHiit(hiit.hiits_id);
+          deleteHiit(hiit);
           removeHiitBeforeDelete(hiit, event);
           showScreen('Custom');
           return;
@@ -341,11 +342,15 @@ const customHiitCards = document.querySelector('.custom-hiit-card');
  initi();
 }
 
-function removeHiitBeforeDelete(hiit, event) {
-  const toBeDeleted = document.querySelector(`.${hiit.name.replace(/\s+/g, '')}`);
-  event.stopPropagation();
-  toBeDeleted.remove();
-}
+// function removeHiitBeforeDelete(hiit, event) {
+//   const toBeDeleted = document.querySelector(`.${hiit.name.replace(/\s+/g, '')}`);
+//   event.stopPropagation();
+//   // if (!toBeDeleted) {
+//   //   return;
+//   // }
+//   // toBeDeleted.remove();
+//   toBeDeleted.style.display = 'none';
+// }
 
 
 export async function buildHiitExercisePage(clickedHiit) {
