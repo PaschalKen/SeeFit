@@ -20,6 +20,7 @@ function getCreateHandles() {
     '.added-exercises-holder'
   );
   createForm.createHiitCard = document.querySelector('.createHiitCard');
+  createForm.eventInfo = document.querySelector('.event-info');
 }
 
 function get() {
@@ -84,12 +85,17 @@ async function sendHiitData() {
   if (responseHiit.ok) {
     sendExerciseData(hiit_id);
     createForm.createHiitForm.reset();
-    alert('HIIT and Exercises created successfully');
+    createForm.eventInfo.textContent = 'HIIT created successfully';
+      createForm.eventInfo.style.opacity = '1';
+      setTimeout(() => {
+        createForm.eventInfo.style.opacity = '0';
+      }, 3000);
   } else {
     console.log('Failed to create HIIT', responseHiit);
   }
 }
 
+// Function to send exercise data
 async function sendExerciseData(hiit_id) {
   // Associate each exercise with the generated HIIT ID
   exerciseDataArray.forEach(async (exerciseData) => {
@@ -105,9 +111,12 @@ async function sendExerciseData(hiit_id) {
 
     if (responseExercise.ok) {
       createForm.addedExerciseHolder.innerHTML = '';
-      console.log('Exercise created successfully');
     } else {
-      console.log('Failed to create Exercise', responseExercise);
+      createForm.eventInfo.textContent = 'Failed to add exercise';
+            createForm.eventInfo.style.opacity = '1';
+            setTimeout(() => {
+              createForm.eventInfo.style.opacity = '0';
+            }, 3000);
     }
   });
 }
@@ -135,6 +144,11 @@ function AddExercise() {
   createForm.exerciseDuration.value = '';
   createForm.exerciseRestDuration.value = '';
   createForm.addBtn.textContent = 'Add Exercise';
+  createForm.eventInfo.textContent = 'Exercise added successfully';
+        createForm.eventInfo.style.opacity = '1';
+        setTimeout(() => {
+          createForm.eventInfo.style.opacity = '0';
+        }, 3000);
 }
 
 function updateExerciseList() {

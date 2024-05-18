@@ -57,6 +57,7 @@ function getHandles() {
   ui.lightMode.addEventListener('click', toggleTheme);
   ui.createHiit = document.querySelector('aside > svg');
   templates.screen = document.querySelector('#screen-template');
+  ui.eventInfo = document.querySelector('.event-info');
 }
 
 function buildScreens() {

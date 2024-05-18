@@ -106,6 +106,27 @@ header h3 {
   color: rgb(62, 64, 67);
 }
 
+.event-info-holder {
+      display: flex;
+    justify-content: center;
+  text-align: center;
+  top: 76%;
+  right: 0em;
+  border-radius: 0.625em;
+  position: fixed;
+  width: 100vw;
+  color: white;
+}
+
+.event-info-holder .event-info {
+      background-color: grey;
+    height: 2em;
+    width: 80%;
+    border-radius: 2em;
+        opacity: 0;
+    transition: opacity 3s;
+}
+
 aside {
   text-align: center;
   top: 85%;
@@ -585,13 +606,5 @@ label {
   main .screen .card {
     display: inline-block;
     margin: 3% 7% 7% 7%;
-  }
-
-  main .screen .level-section {
-    position: relative;
-    width: 100%;
-    overflow-x: scroll;
-    white-space: nowrap;
-    margin-bottom: 20px;
   }
 }
