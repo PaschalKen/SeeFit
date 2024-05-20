@@ -1,12 +1,13 @@
 //Globals
 //Different pages of the app
 
-// import { populatePerformHiitPage } from "./hiit.js";
 import { start } from './timer.js';
 
 import { initi } from './createhiit.js';
 
 import { deleteHiit } from './deletehiit.js';
+
+import { toggleTheme } from './theme.js';
 
 const pages = [
   {
@@ -35,11 +36,13 @@ const pages = [
   },
 ];
 
+let theme;
+
 const ui = {};
 
 const templates = {};
 
-let theme;
+
 
 function getHandles() {
   ui.mainNav = document.querySelector('header > nav');
@@ -58,12 +61,8 @@ function getHandles() {
   ui.createHiit = document.querySelector('aside > svg');
   templates.screen = document.querySelector('#screen-template');
   ui.eventInfo = document.querySelector('.event-info');
-  
+
 }
-
-
-
-
 
 function buildScreens() {
   const template = templates.screen;
@@ -71,26 +70,12 @@ function buildScreens() {
     const section = template.content.cloneNode(true).firstElementChild;
     section.dataset.id = `section-${page.screen}`;
     section.dataset.screen = page.screen;
-
     ui.main.append(section);
     ui.screens[page.screen] = section;
   }
 }
 
-function toggleTheme() {
-  let elem = document.body;
-  if (ui.darkMode.classList.contains('hidden')) {
-    ui.darkMode.classList.remove('hidden');
-    ui.lightMode.classList.add('hidden');
-    elem.classList.remove('light-mode');
-    ui.title.classList.remove('light-mode');
-  } else {
-    ui.darkMode.classList.add('hidden');
-    ui.lightMode.classList.remove('hidden');
-    elem.classList.add('light-mode');
-    ui.title.classList.add('light-mode');
-  }
-}
+
 
 //set up the nav bar with buttons
 function setupNav() {
@@ -126,7 +111,6 @@ function setupNav() {
     }
   }
 }
-
 
 // style the active button
 function styleActiveBtn(clickedBtn) {

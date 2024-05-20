@@ -1,6 +1,5 @@
+const ui = {};
 
-
-const ui = {}
 export async function deleteHiit(hiit) {
       const toBeDeleted = document.querySelector(
         `.${hiit.name.replace(/\s+/g, '')}`

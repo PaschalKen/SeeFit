@@ -182,6 +182,10 @@ main .screen .card {
   position: relative;
 }
 
+.light-mode main .screen .card {
+  color: #000;
+}
+
 main .screen .card:hover {
   transform: scale(1.05);
   transition: transform 0.3s;
@@ -343,11 +347,17 @@ main .screen article .savedHiits {
   color: white;
 }
 
+.light-mode main .screen article .savedHiits {
+  color: black;
+}
 main .screen article .savedHiits .records-holder {
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 3em;
+        box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
+    padding: 2em;
+    border-radius: 1em;
 }
 
 main .screen article .savedHiits .records-holder section {
@@ -369,6 +379,9 @@ main .screen article .savedHiits .records-holder section .total-time {
         font-size: 23px;
 }
 
+.light-mode main .screen article .savedHiits .records-holder section .total-time {
+  color: black;
+}
 main .screen article .savedHiits .records-holder section .total-exercises {
     height: 7em;
     width: 7em;
@@ -384,6 +397,10 @@ main .screen article .savedHiits .records-holder section .total-exercises {
 
 }
 
+.light-mode main .screen article .savedHiits .records-holder section .total-exercises {
+  color: black;
+}
+
 main .screen article .savedHiits .records-holder section .total-hiits {
     height: 7em;
     width: 7em;
@@ -396,6 +413,10 @@ main .screen article .savedHiits .records-holder section .total-hiits {
     justify-content: center;
     align-items: center;
         font-size: 23px;
+}
+
+.light-mode main .screen article .savedHiits .records-holder section .total-hiits {
+  color: black;
 }
 
 main .screen article .savedHiits .records-holder section .span {

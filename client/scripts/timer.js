@@ -18,11 +18,13 @@ let pausedState = {
   currentExerciseIndex: 0,
 };
 
-let totalhiits = 0;
+export {exercisesArray};
 
 const timerElem = {};
 
-const increment = 15;
+const increment = 1;
+
+import { handleCompleteHiit } from './record.js';
 
 function getTimerHandles() {
   timerElem.currentExercise = document.querySelector('.current-exercise');
@@ -43,7 +45,9 @@ function getTimerHandles() {
 function timerRunning() {
   // Check if hiit is completed
   if (hiitElapsedTime === totalHiitDuration) {
+    clearInterval(intervalId);
     handleCompleteHiit();
+    resetTimer();
   }
 
   const currentExercise = exercisesArray[currentExerciseIndex];
@@ -59,7 +63,19 @@ function timerRunning() {
   moveToNextActivity(currentExercise);
 }
 
-function convertStoM(time) {
+// Function to reset the timer
+function resetTimer() {
+  timerElem.timer.textContent = '00:00';
+  timerElem.progressBar.style.setProperty('--progress', '0');
+  currentExerciseIndex = 0;
+  exerciseElapsedTime = 0;
+  hiitElapsedTime = 0;
+  pausedState.elapsedTime = 0;
+  pausedState.currentExerciseIndex = 0;
+
+}
+
+export function convertStoM(time) {
   const isNegative = time < 0;
   const absTime = Math.abs(time);
   const minutes = Math.floor(absTime / 60);
@@ -116,81 +132,8 @@ function updateProgressBar() {
   timerElem.progressBar.style.setProperty('--progress', `${progress}%`);
 }
 
-
-// Function to reset the timer
-function resetTimer() {
-  timerElem.timer.textContent = '00:00';
-}
-
-// Function to count completed HIITs
-function countCompletedHiits() {
-  totalhiits += 1;
-}
-
-// ... (other code)
-
-let completedExerciseCount = 0;
-let completedTime = 0;
-
-export function handleCompleteHiit() {
-  resetTimer();
-  countCompletedHiits();
-  clearInterval(intervalId);
-  completedHiitDetails(exercisesArray);
-  populateDashboard();
-  
-}
-
-function completedHiitDetails(hiit) {
-  const completedHiitDuration = calculateTotalHiitDuration(hiit);
-  completedTime += completedHiitDuration;
-  getExerciseCount(hiit);
-  getCompletedHiitName(exercisesArray, completedTime);
-}
-
-function getExerciseCount(hiit) {
-  const exerciseCount = hiit.length;
-  completedExerciseCount += exerciseCount;
-}
-
-export async function getCompletedHiitName(exercisesArray, completedTime) {
-  const hiitId = exercisesArray[0].hiit_id; // Get the hiit_id from the first exercise
-  const hiits = await getAllHiits();
-  const completedHiit = hiits.find((hiit) => hiit.hiits_id === hiitId);
-
-  const completedHiits = document.querySelector('.finished-hiits-holder');
-  const section = document.createElement('section');
-
-
-    const completedHiitTitle = document.createElement('h3');
-    completedHiitTitle.textContent = completedHiit.name;
-
-    const completedHiitDuration = document.createElement('p');
-    completedHiitDuration.textContent = convertStoM(completedTime);
-
-
-  section.classList.add('completed-hiit');
-  section.appendChild(completedHiitTitle);
-  section.appendChild(completedHiitDuration);
-  completedHiits.appendChild(section);
-}
-
-// Function to populate the dashboard
-function populateDashboard() {
-  const totalHiitsElem = document.querySelector('.total-hiits');
-  const totalDurationElem = document.querySelector('.total-time');
-  const totalExercisesElem = document.querySelector('.total-exercises');
-
-  totalHiitsElem.childNodes[0].nodeValue = totalhiits > 9 ? totalhiits : `0${totalhiits}`;
-  totalDurationElem.childNodes[0].nodeValue = convertStoM(completedTime);
-  totalExercisesElem.childNodes[0].nodeValue = completedExerciseCount > 9 ? completedExerciseCount : `0${completedExerciseCount}`;
-}
-
-// ... (other code)
-
-
 // Function to calculate total HIIT duration
-function calculateTotalHiitDuration(Hiit) {
+export function calculateTotalHiitDuration(Hiit) {
   totalHiitDuration = Hiit.reduce(
     (total, exercise) =>
       total + exercise.exercise_duration + exercise.rest_duration,
