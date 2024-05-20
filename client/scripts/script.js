@@ -18,8 +18,8 @@ const pages = [
     title: 'Custom Hiits',
   },
   {
-    screen: 'Favourites',
-    title: 'Favourite Hiits',
+    screen: 'Dashboard',
+    title: 'Dashboard',
   },
   {
     screen: 'Hiit',
@@ -110,10 +110,10 @@ function setupNav() {
     if (
       page.screen === 'Default' ||
       page.screen === 'Custom' ||
-      page.screen === 'Favourites'
+      page.screen === 'Dashboard'
     ) {
       ui.mainNav.append(button); // Append to the navigation bar
-    // } else {
+      // } else {
       // Append to some other part of the app based on your requirement
       // const otherContainer = document.querySelector('.others'); // Example other container
       // otherContainer.append(button);
