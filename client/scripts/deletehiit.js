@@ -1,3 +1,6 @@
+
+
+const ui = {}
 export async function deleteHiit(hiit) {
       const toBeDeleted = document.querySelector(
         `.${hiit.name.replace(/\s+/g, '')}`
@@ -8,6 +11,8 @@ export async function deleteHiit(hiit) {
     if (response.ok) {
         toBeDeleted.remove();
         console.log('HIIT deleted successfully');
+      
+
     } else {
         console.log('Failed to delete HIIT', response);
         toBeDeleted.style.display = 'grid';
@@ -21,4 +26,5 @@ export function removeHiitBeforeDelete(hiit, event) {
     return;
   }
   toBeDeleted.style.display = 'none';
+  ui.eventInfo = document.querySelector('.event-info');
 }

@@ -58,7 +58,12 @@ function getHandles() {
   ui.createHiit = document.querySelector('aside > svg');
   templates.screen = document.querySelector('#screen-template');
   ui.eventInfo = document.querySelector('.event-info');
+  
 }
+
+
+
+
 
 function buildScreens() {
   const template = templates.screen;
@@ -252,7 +257,7 @@ async function getScreenContent() {
   }
 }
 
-async function getAllHiits() {
+export async function getAllHiits() {
   const response = await fetch('/hiits');
   let hiits;
   if (response.ok) {
@@ -268,6 +273,7 @@ import { removeHiitBeforeDelete } from './deletehiit.js';
 
 async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
+  
     setTimeout(() => {
     const customHiitCards = document.querySelector('.custom-hiit-card');
     customHiitCards.innerHTML = '';
@@ -321,10 +327,16 @@ async function populateHiitCards(hiits) {
       () => buildHiitExercisePage(hiit.hiits_id)
     );
 
-        svgIcon.addEventListener('click', function (event) {
+        deleteIcon.addEventListener('click', function (event) {
           deleteHiit(hiit);
           removeHiitBeforeDelete(hiit, event);
           showScreen('Custom');
+          ui.eventInfo.textContent = 'HIIT deleted successfully';
+                ui.eventInfo.style.opacity = '1';
+                setTimeout(() => {
+                  ui.eventInfo.style.opacity = '0';
+                }, 3000);
+          
           return;
         });
 
@@ -343,15 +355,6 @@ const customHiitCards = document.querySelector('.custom-hiit-card');
  initi();
 }
 
-// function removeHiitBeforeDelete(hiit, event) {
-//   const toBeDeleted = document.querySelector(`.${hiit.name.replace(/\s+/g, '')}`);
-//   event.stopPropagation();
-//   // if (!toBeDeleted) {
-//   //   return;
-//   // }
-//   // toBeDeleted.remove();
-//   toBeDeleted.style.display = 'none';
-// }
 
 
 export async function buildHiitExercisePage(clickedHiit) {
@@ -375,101 +378,105 @@ export async function buildHiitExercisePage(clickedHiit) {
   const hiitDuration = document.querySelector('.hiitsDuration');
   hiitDuration.textContent = `${duration} Mins`;
 
-
   const exercise = await getAllExercises();
   const filteredExercises = exercise.filter(
     (exercise) => exercise.hiit_id === clickedHiit
   );
 
-    const startHiitBtn = document.createElement('button');
-    startHiitBtn.classList.add('start-hiit');
-    startHiitBtn.textContent = 'Start Hiit';
-    startHiitBtn.addEventListener('click', function () {
-      start(clickedHiit);
+  const startHiitBtn = document.createElement('button');
+  startHiitBtn.dataset.screen = 'PerformHiit';
+  
+  startHiitBtn.classList.add('start-hiit');
+  startHiitBtn.textContent = 'Start Hiit';
+  startHiitBtn.addEventListener('click', function () {
+    // storeState();
+    // ui.currentScreen = 'PerformHiit';
+    ui.previousScreen = 'Hiit';
+    ui.title.textContent = clickedHiitObj.name;
+    start(clickedHiit);
+  });
+
+  filteredExercises.forEach((exercise) => {
+    const exerciseCard = document.createElement('section');
+    exerciseCard.classList.add('exercise-card');
+
+    const exerciseTitle = document.createElement('h3');
+    exerciseTitle.textContent = exercise.name;
+
+    const exerciseDuration = document.createElement('p');
+    exerciseDuration.textContent = convertStoMs(exercise.exercise_duration);
+
+    const exerciseInfo = document.createElement('section');
+    exerciseInfo.classList.add('exercise-info');
+
+    exerciseInfo.append(exerciseTitle);
+    exerciseInfo.append(exerciseDuration);
+
+    const dropDown = document.createElement('section');
+    dropDown.classList.add('drop-down');
+
+    const content = document.createElement('section');
+    content.classList.add('content');
+
+    const exerciseDescription = document.createElement('article');
+    exerciseDescription.textContent = exercise.description;
+
+    exerciseInfo.append(exerciseTitle);
+    exerciseInfo.append(exerciseDuration);
+    exerciseCard.append(exerciseInfo);
+    exerciseCard.append(dropDown);
+    content.append(exerciseDescription);
+    exerciseCard.append(content);
+    document.querySelector('.hiit-exercises').append(exerciseCard);
+
+    // Set default SVG content for drop-down
+    dropDown.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
+
+    // Conditionally update drop-down content when clicked
+    exerciseCard.addEventListener('click', function () {
+      content.classList.toggle('hidden');
+      if (content.scrollHeight > 1) {
+        // Create SVG element with alternative path
+        const svg = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'svg'
+        );
+        svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        svg.setAttribute('height', '24px');
+        svg.setAttribute('viewBox', '0 -960 960 960');
+        svg.setAttribute('width', '24px');
+        svg.setAttribute('fill', '#e8eaed');
+        // Create alternative path element
+        const path = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'path'
+        );
+        path.setAttribute(
+          'd',
+          'm296-345-56-56 240-240 240 240-56 56-184-184-184 184Z'
+        );
+        // Append alternative path to SVG
+        svg.appendChild(path);
+        // Clear previous content and append SVG to drop-down
+        dropDown.innerHTML = '';
+        dropDown.appendChild(svg);
+      } else {
+        // Default SVG content
+        dropDown.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
+      }
+
+      if (content.classList.contains('hidden')) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
     });
-
-    filteredExercises.forEach((exercise) => {
-      const exerciseCard = document.createElement('section');
-      exerciseCard.classList.add('exercise-card');
-
-      const exerciseTitle = document.createElement('h3');
-      exerciseTitle.textContent = exercise.name;
-
-      const exerciseDuration = document.createElement('p');
-      exerciseDuration.textContent = convertStoMs(exercise.exercise_duration);
-
-      const exerciseInfo = document.createElement('section');
-      exerciseInfo.classList.add('exercise-info');
-
-      exerciseInfo.append(exerciseTitle);
-      exerciseInfo.append(exerciseDuration);
-
-      const dropDown = document.createElement('section');
-      dropDown.classList.add('drop-down');
-
-      const content = document.createElement('section');
-      content.classList.add('content');
-
-      const exerciseDescription = document.createElement('article');
-      exerciseDescription.textContent = exercise.description;
-
-      exerciseInfo.append(exerciseTitle);
-      exerciseInfo.append(exerciseDuration);
-      exerciseCard.append(exerciseInfo);
-      exerciseCard.append(dropDown);
-      content.append(exerciseDescription);
-      exerciseCard.append(content);
-      document.querySelector('.hiit-exercises').append(exerciseCard);
-
-      // Set default SVG content for drop-down
-      dropDown.innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
-
-      // Conditionally update drop-down content when clicked
-      exerciseCard.addEventListener('click', function () {
-        content.classList.toggle('hidden');
-        if (content.scrollHeight > 1) {
-          // Create SVG element with alternative path
-          const svg = document.createElementNS(
-            'http://www.w3.org/2000/svg',
-            'svg'
-          );
-          svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-          svg.setAttribute('height', '24px');
-          svg.setAttribute('viewBox', '0 -960 960 960');
-          svg.setAttribute('width', '24px');
-          svg.setAttribute('fill', '#e8eaed');
-          // Create alternative path element
-          const path = document.createElementNS(
-            'http://www.w3.org/2000/svg',
-            'path'
-          );
-          path.setAttribute(
-            'd',
-            'm296-345-56-56 240-240 240 240-56 56-184-184-184 184Z'
-          );
-          // Append alternative path to SVG
-          svg.appendChild(path);
-          // Clear previous content and append SVG to drop-down
-          dropDown.innerHTML = '';
-          dropDown.appendChild(svg);
-        } else {
-          // Default SVG content
-          dropDown.innerHTML =
-            '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
-        }
-
-        if (content.classList.contains('hidden')) {
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-        }
-      });
-    });
-
+  });
 
   document.querySelector('.hiit-exercises').append(startHiitBtn);
-const hiitName = clickedHiitObj.name;
+  const hiitName = clickedHiitObj.name;
   return hiitName;
 }
 

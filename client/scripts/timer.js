@@ -2,6 +2,7 @@ import {
   getAllExercises,
   showScreen,
   buildHiitExercisePage,
+  getAllHiits
 } from './script.js';
 
 // Global variables
@@ -21,7 +22,7 @@ let totalhiits = 0;
 
 const timerElem = {};
 
-const increment = 1;
+const increment = 15;
 
 function getTimerHandles() {
   timerElem.currentExercise = document.querySelector('.current-exercise');
@@ -98,12 +99,7 @@ function moveToNextActivity(currentExercise) {
 
     timerElem.timer.textContent = convertStoM(remainingTime);
     1;
-    console.log(
-      'exerciseElapsedTime',
-      exerciseElapsedTime,
-      'timer content',
-      convertStoM(remainingTime)
-    );
+
     if (exerciseElapsedTime >= actualExerciseDuration) {
       timerElem.currentExercise.textContent = 'Rest';
       timerElem.exerciseDescription.textContent = `Take a ${actualRestDuration} Second rest`;
@@ -120,14 +116,6 @@ function updateProgressBar() {
   timerElem.progressBar.style.setProperty('--progress', `${progress}%`);
 }
 
-export async function getCompletedHiitName() {
-  const name = await buildHiitExercisePage();
-  const card = document.querySelector('.card');
-  card.addEventListener('click', () => {
-    console.log('name');
-  });
-  return name;
-}
 
 // Function to reset the timer
 function resetTimer() {
@@ -137,15 +125,69 @@ function resetTimer() {
 // Function to count completed HIITs
 function countCompletedHiits() {
   totalhiits += 1;
-  console.log('completed', totalhiits);
 }
 
-// Function to handle the completion of a HIIT
+// ... (other code)
+
+let completedExerciseCount = 0;
+let completedTime = 0;
+
 export function handleCompleteHiit() {
   resetTimer();
   countCompletedHiits();
   clearInterval(intervalId);
+  completedHiitDetails(exercisesArray);
+  populateDashboard();
+  
 }
+
+function completedHiitDetails(hiit) {
+  const completedHiitDuration = calculateTotalHiitDuration(hiit);
+  completedTime += completedHiitDuration;
+  getExerciseCount(hiit);
+  getCompletedHiitName(exercisesArray, completedTime);
+}
+
+function getExerciseCount(hiit) {
+  const exerciseCount = hiit.length;
+  completedExerciseCount += exerciseCount;
+}
+
+export async function getCompletedHiitName(exercisesArray, completedTime) {
+  const hiitId = exercisesArray[0].hiit_id; // Get the hiit_id from the first exercise
+  const hiits = await getAllHiits();
+  const completedHiit = hiits.find((hiit) => hiit.hiits_id === hiitId);
+
+  const completedHiits = document.querySelector('.finished-hiits-holder');
+  const section = document.createElement('section');
+
+
+    const completedHiitTitle = document.createElement('h3');
+    completedHiitTitle.textContent = completedHiit.name;
+
+    const completedHiitDuration = document.createElement('p');
+    completedHiitDuration.textContent = convertStoM(completedTime);
+
+
+  section.classList.add('completed-hiit');
+  section.appendChild(completedHiitTitle);
+  section.appendChild(completedHiitDuration);
+  completedHiits.appendChild(section);
+}
+
+// Function to populate the dashboard
+function populateDashboard() {
+  const totalHiitsElem = document.querySelector('.total-hiits');
+  const totalDurationElem = document.querySelector('.total-time');
+  const totalExercisesElem = document.querySelector('.total-exercises');
+
+  totalHiitsElem.childNodes[0].nodeValue = totalhiits > 9 ? totalhiits : `0${totalhiits}`;
+  totalDurationElem.childNodes[0].nodeValue = convertStoM(completedTime);
+  totalExercisesElem.childNodes[0].nodeValue = completedExerciseCount > 9 ? completedExerciseCount : `0${completedExerciseCount}`;
+}
+
+// ... (other code)
+
 
 // Function to calculate total HIIT duration
 function calculateTotalHiitDuration(Hiit) {
@@ -154,6 +196,7 @@ function calculateTotalHiitDuration(Hiit) {
       total + exercise.exercise_duration + exercise.rest_duration,
     0
   );
+  return totalHiitDuration;
 }
 
 // Function to add event listeners
