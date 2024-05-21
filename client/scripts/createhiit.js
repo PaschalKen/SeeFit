@@ -97,9 +97,7 @@ async function sendHiitData() {
 // Function to clear existing form data on create
 function clearExistingFormDataOnCreate() {
   createForm.createHiitForm.reset();
-  while (exerciseDataArray.length > 0) {
-    exerciseDataArray.pop();
-  }
+  exerciseDataArray = [];
 }
 
 // Function to send exercise data

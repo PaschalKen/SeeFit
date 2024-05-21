@@ -56,12 +56,12 @@ export function createDeletePopup(hiit) {
   const deleteBtn = document.createElement('button');
   const cancelBtn = document.createElement('button');
 
-  btnHolder.append(deleteBtn, cancelBtn);
+  btnHolder.append(cancelBtn, deleteBtn);
 
   deleteBtn.className = 'button';
   cancelBtn.className = 'button';
-  cancelBtn.textContent = 'cancel';
-  deleteBtn.textContent = 'yes, Delete';
+  cancelBtn.textContent = 'Cancel';
+  deleteBtn.textContent = 'Yes, Delete';
   projectCreatePopup.append(svg, projectCreateTitle, btnHolder);
   projectCreateTitle.textContent = 'Are you sure you want to delete this hiit';
   confirmDelete.appendChild(projectCreatePopup);
