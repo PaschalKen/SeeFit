@@ -351,13 +351,13 @@ main .screen article .savedHiits {
   color: black;
 }
 main .screen article .savedHiits .records-holder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 3em;
-        box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
-    padding: 2em;
-    border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 3em;
+  box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
+  padding: 2em;
+  border-radius: 1em;
 }
 
 main .screen article .savedHiits .records-holder section {
@@ -647,6 +647,68 @@ label {
   padding: 5px;
   background-color: white;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup {
+      display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 15em;
+    width: 23em;
+    border: 2px solid #000;
+    border-radius: 1em;
+    padding: 0;
+
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  z-index: 10000;
+}
+
+.popup .close-icon {
+      margin: 0.5em 0 0 20em;
+    position: relative;
+}
+
+.popup section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup section .button {
+      padding: 0.625em;
+    width: 7em;
+    border: 1px solid #000;
+    border-radius: 0.5em;
+    color: #000;
+    cursor: pointer;
+    margin: 1em;
+}
+
+
+
+/* .profile-section .profile-card .close-icon {
+  margin: 0.5em 0 0 16em;
+  position: relative;
+}
+
+.profile-section .profile-card .close-icon:hover {
+  opacity: 0.5;
+} */
 
 
 @media (max-width: 880px) {

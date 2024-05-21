@@ -31,14 +31,14 @@ function get() {
 }
 
 function updateAddExerciseBtn() {
-    createForm.add.addEventListener('click', () => {
-      showScreen('createhiit');
-      if (editingIndex !== null) {
-        createForm.addBtn.textContent = 'Update Exercise';
-      } else {
-        createForm.addBtn.textContent = 'Add Exercise';
-      }
-    });
+  createForm.add.addEventListener('click', () => {
+    showScreen('createhiit');
+    if (editingIndex !== null) {
+      createForm.addBtn.textContent = 'Update Exercise';
+    } else {
+      createForm.addBtn.textContent = 'Add Exercise';
+    }
+  });
 }
 
 function getHiitData() {
@@ -83,7 +83,7 @@ async function sendHiitData() {
   });
   if (responseHiit.ok) {
     sendExerciseData(hiit_id);
-    createForm.createHiitForm.reset();
+    clearExistingFormDataOnCreate();
     createForm.eventInfo.textContent = 'HIIT created successfully';
       createForm.eventInfo.style.opacity = '1';
       setTimeout(() => {
@@ -91,6 +91,14 @@ async function sendHiitData() {
       }, 3000);
   } else {
     console.log('Failed to create HIIT', responseHiit);
+  }
+}
+
+// Function to clear existing form data on create
+function clearExistingFormDataOnCreate() {
+  createForm.createHiitForm.reset();
+  while (exerciseDataArray.length > 0) {
+    exerciseDataArray.pop();
   }
 }
 
@@ -112,10 +120,10 @@ async function sendExerciseData(hiit_id) {
       createForm.addedExerciseHolder.innerHTML = '';
     } else {
       createForm.eventInfo.textContent = 'Failed to add exercise';
-            createForm.eventInfo.style.opacity = '1';
-            setTimeout(() => {
-              createForm.eventInfo.style.opacity = '0';
-            }, 3000);
+      createForm.eventInfo.style.opacity = '1';
+      setTimeout(() => {
+        createForm.eventInfo.style.opacity = '0';
+      }, 3000);
     }
   });
 }

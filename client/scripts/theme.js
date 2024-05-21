@@ -4,6 +4,8 @@ let theme;
   ui.darkMode = theme[1];
   ui.lightMode = theme[2];
    ui.title = document.querySelector('header > h3');
+
+   
 export function toggleTheme() {
   ui.hiitTitle = document.querySelectorAll('.hiit-title');
   ui.hiitDescription = document.querySelectorAll('.no-of-exercises');
