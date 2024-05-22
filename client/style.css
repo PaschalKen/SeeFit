@@ -663,6 +663,7 @@ label {
     justify-content: center;
     align-items: center;
     height: 11em;
+    width: 80%;
     max-width: 22em;
     border: 2px solid #000;
     border-radius: 1em;
@@ -679,7 +680,7 @@ label {
 }
 
 .popup .close-icon {
-    margin: -1.5em 0 0 22em;
+    margin: -1.5em 0 0 19em;
     position: relative;
 }
 

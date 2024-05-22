@@ -63,7 +63,7 @@ export function createDeletePopup(hiit) {
   cancelBtn.textContent = 'Cancel';
   deleteBtn.textContent = 'Yes, Delete';
   projectCreatePopup.append(svg, projectCreateTitle, btnHolder);
-  projectCreateTitle.textContent = 'Are you sure you want to delete this hiit';
+  projectCreateTitle.textContent = 'Delete this hiit?';
   confirmDelete.appendChild(projectCreatePopup);
   svg.classList.add('close-icon');
 

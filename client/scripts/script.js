@@ -6,11 +6,7 @@ import { start } from './timer.js';
 
 import { initi } from './createhiit.js';
 
-import { deleteHiit } from './deletehiit.js';
-
 import { toggleTheme } from './theme.js';
-
-import { removeHiitBeforeDelete } from './deletehiit.js';
 
 const pages = [
   {

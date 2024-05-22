@@ -22,7 +22,7 @@ export {exercisesArray};
 
 const timerElem = {};
 
-const increment = 15;
+const increment = 1;
 
 import { handleCompleteHiit } from './record.js';
 
