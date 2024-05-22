@@ -63,7 +63,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
     - A form which the user can input information like; `hiit name`, `hiit description`, `exercise name`, `exercise description`, `exercise duration`, and `rest duration` for that particular exercise in seconds. This was implemented to give th user full control of customisation.
 
 - Click on `add exercise` to record the details of the first exercise provided.
-    -when the user successfully adds an exercise, an `element` that contains the name of the added exercise and an `x icon` which is popularly known as remove buton (to prevent the user from wondering how they can delete the exercise) will be added at the top of the form. This supports the Nielsen's 1st usability Heuristic which suggests "user consistency and standards".
+    - when the user successfully adds an exercise, an `element` that contains the name of the added exercise and an `x icon` which is popularly known as remove buton (to prevent the user from wondering how they can delete the exercise) will be added at the top of the form. This supports the Nielsen's 1st usability Heuristic which suggests "user consistency and standards".
     - Upon adding a new exercise, a section that says `Exercise added successfully` fades in for 3 seconds to let the user know the exercise has been added. This supports the Nielsen's 1st usability Heuristic which suggests "visibility of system status".
     - the users can choose to add as many exercises as they wish. 
     - Users can `delete` and `edit` added exercises upon creating a hiit so they dont feel stuck while creating a hiit if they have made a mistake. this aligns with the Nielsen's 1st usability Heuristic which suggests "user control and freedom".
