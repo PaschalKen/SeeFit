@@ -65,5 +65,3 @@ INSERT INTO Exercise (name, description, exercise_duration, rest_duration, hiit_
 ('Russian twists', 'Hold a weight or medicine ball with both hands and rotate your torso from side to side, tapping the weight on the ground next to your hips', 45, 60, 'f57e222c-248e-4bfc-af6e-f68d95c0e43d'),
 ('Tuck jumps', 'Start by standing with feet hip-width apart. Squat down, then explode upwards, bringing your knees towards your chest. Land softly and immediately repeat', 60, 60, 'f57e222c-248e-4bfc-af6e-f68d95c0e43d'),
 ('Leg raises', 'Start by lying on your back, lift your legs towards the ceiling, and lower them back down, targeting the lower abs and improving core strength', 45, 60, 'f57e222c-248e-4bfc-af6e-f68d95c0e43d');
-
-

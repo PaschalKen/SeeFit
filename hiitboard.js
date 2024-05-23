@@ -56,11 +56,3 @@ export async function listExercises() {
   const db = await dbConn;
   return db.all('SELECT * FROM Exercise');
 }
-
-export async function editHiit(updatedHiit) {
-  const db= await dbConn;
-
-  const id = updatedHiit.id;
-  const name = updatedHiit.name;
-  const description = updatedHiit.description;
-}

@@ -14,6 +14,8 @@ A high-intensity interval training (HIIT) app that enables users to create and p
 - [Features](#features)
 - [Usage](#usage)
 - [API](#api)
+- [Project structure](#project-structure)
+- [Database](#database)
 
 
 
@@ -122,19 +124,47 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 ### Toggling Theme
 - You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app
 
+## Project Structure
 
+## Root Directory
 
-List the main features of your project here.
+- **README.md**
+- **index.html**
+- **src**
+  - **components**
+    - `Header.js`
+    - `Footer.js`
+  - **styles**
+    - `main.css`
+    - `theme.css`
+  - **utils**
+    - `helpers.js`
+- **public**
+  - `favicon.ico`
+  - `index.html`
+- **package.json**
+- **.gitignore**
+- **node_modules**
 
 
 ## API
-I implemented the following APIs
+The server side of the project contains a file `hiitboard.js` which contains APIs that communicate with the server to perform the following operations:
 - `/hiits`
-    - GET: Retrieve all the Hiits in my SQLite database.
-    - POST: Upload Hiits created by users to the database
+    - GET: Retrieve all the Hiits in the database.
+    - POST: Upload Hiits created by users to the database.
 - `/hiits/:id`
     - DELETE:  Delete a hiit from the database
-- exercise
+- `/exercise` 
+    - GET: Retrieve all the Exercises in the database.
+    - POST: UPload added exercises added by users to the database.
+- `app`
+    - GET: Serves the _index.html_ from the client in response to GET requests that start with _/app_
+
+
+## Database
+This web app was developed using `SQLite` to store Hiit data. This is because SQLite is self-contained which means it requires minimal support from the operating system or external library. SQLite is fast, which can be attributed to the fact that it is a lightweight DBMS with simple operations and minimal design.
+- The database is created bt the `init()` function in the `hiitboard.js` when the server is ran. 
+- The folder `migrations-sqlite` contains the file `001-initial.sql` which contains the script that create the database entities(tables), fields(columns), and inserts data for the default hiits.
 
 
 
