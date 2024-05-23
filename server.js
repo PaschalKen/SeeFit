@@ -21,27 +21,49 @@ async function getHiits(req, res) {
 }
 
 async function postHiit(req, res) {
-  const hiit = await hb.addHiit(
-    req.body.hiit_id,
-    req.body.name,
-    req.body.description,
-    req.body.type
-  );
-  res.json(hiit);
+  try {
+    const hiit = await hb.addHiit(
+      req.body.hiit_id,
+      req.body.name,
+      req.body.description,
+      req.body.type,
+    );
+    res.json(hiit);
+  } catch (error) {
+    console.error('Error adding hiit:', error);
+  }
 }
 
 async function postExercise(req, res) {
-  const exercise = await hb.addExercise(req.body.name, req.body.description, req.body.exercise_duration, req.body.rest_duration, req.body.hiit_id);
-  res.json(exercise);
+  try {
+    const exercise = await hb.addExercise(
+      req.body.name,
+      req.body.description,
+      req.body.exercise_duration,
+      req.body.rest_duration,
+      req.body.hiit_id,
+    );
+    res.json(exercise);
+  } catch (error) {
+    console.error('Error adding exercise:', error);
+  }
 }
 
 async function getExercise(req, res) {
-  res.json(await hb.listExercises());
+  try {
+    res.json(await hb.listExercises());
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+  }
 }
 
 async function handleDeleteHiit(req, res) {
-  await hb.deleteHiit(req.params.id);
-  res.status(204).send('will delete');
+  try {
+    await hb.deleteHiit(req.params.id);
+    res.status(204).send('will delete');
+  } catch (error) {
+    console.error('Error deleting hiit:', error);
+  }
 }
 
 app.delete('/hiits/:id', handleDeleteHiit);
@@ -58,6 +80,3 @@ const port = 8080;
 app.listen(port, () => {
   console.log(`Server listening on Port:${port}`);
 });
-
-
-

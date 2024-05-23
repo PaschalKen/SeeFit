@@ -15,7 +15,7 @@ let pausedState = {
   currentExerciseIndex: 0,
 };
 
-export {exercisesArray, currentExerciseIndex, exerciseElapsedTime, hiitElapsedTime, totalHiitDuration, intervalId, pausedState};
+export { exercisesArray, currentExerciseIndex, exerciseElapsedTime, hiitElapsedTime, totalHiitDuration, intervalId, pausedState };
 
 const timerElem = {};
 
@@ -34,6 +34,8 @@ function getTimerHandles() {
   timerElem.progressBar = document.querySelector('.timer-progress-holder');
 }
 
+const sound = new Audio('../media/audio/timer.ogg');
+
 // Timer running function
 function timerRunning() {
   // Check if hiit is completed
@@ -43,7 +45,7 @@ function timerRunning() {
     resetTimer();
     resetHiitData();
   }
-
+  sound.play();
   const currentExercise = exercisesArray[currentExerciseIndex];
   const nextExercise = exercisesArray[currentExerciseIndex + 1];
 
@@ -125,8 +127,6 @@ function moveToNextActivity(currentExercise) {
     updateProgressBar();
 
     timerElem.timer.textContent = convertStoM(remainingTime);
-    1;
-
     if (exerciseElapsedTime >= actualExerciseDuration) {
       timerElem.currentExercise.textContent = 'Rest';
       timerElem.exerciseDescription.textContent = `Take a ${actualRestDuration} Second rest`;
@@ -148,7 +148,7 @@ export function calculateTotalHiitDuration(Hiit) {
   totalHiitDuration = Hiit.reduce(
     (total, exercise) =>
       total + exercise.exercise_duration + exercise.rest_duration,
-    0
+    0,
   );
   return totalHiitDuration;
 }
@@ -206,6 +206,7 @@ function stopTimer() {
 
   // Clear the interval
   clearInterval(intervalId);
+  sound.pause();
   // Reset timer variables
   currentExerciseIndex = 0;
   exerciseElapsedTime = 0;
@@ -222,7 +223,7 @@ export async function start(clickedHiit) {
 
   const exercises = await getAllExercises();
   const filteredExercises = exercises.filter(
-    (exercise) => exercise.hiit_id === clickedHiit
+    (exercise) => exercise.hiit_id === clickedHiit,
   );
 
   exercisesArray = filteredExercises;

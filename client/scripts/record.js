@@ -1,14 +1,6 @@
-import { convertStoM, calculateTotalHiitDuration } from './timer.js';
-import { getAllHiits  } from './script.js';
-import {
-  exercisesArray,
-  currentExerciseIndex,
-  exerciseElapsedTime,
-  hiitElapsedTime,
-  totalHiitDuration,
-  intervalId,
-  pausedState,
-} from './timer.js';
+import { convertStoM, calculateTotalHiitDuration, exercisesArray } from './timer.js';
+import { getAllHiits } from './script.js';
+
 
 let totalhiits = 0;
 let completedExerciseCount = 0;
@@ -24,14 +16,10 @@ export function handleCompleteHiit() {
   countCompletedHiits();
   completedHiitDetails(exercisesArray);
   populateDashboard();
-  // exerciseElapsedTime = 0;
-  // hiitElapsedTime = 0;
-  // clearInterval(intervalId);
-
 }
 
 function completedHiitDetails(hiit) {
-  let completedHiitDuration = calculateTotalHiitDuration(hiit);
+  const completedHiitDuration = calculateTotalHiitDuration(hiit);
   completedTime += completedHiitDuration;
   getExerciseCount(hiit);
   getCompletedHiitName(exercisesArray, completedHiitDuration);

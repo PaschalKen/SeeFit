@@ -1,9 +1,11 @@
-//Globals
-//Different pages of the app
+// Globals
+// Different pages of the app
 
-import { start } from './timer.js';
+import { start, checkIfScreenIsLeft } from './timer.js';
 
 import { initi } from './createhiit.js';
+
+import { createDeletePopup } from './deletehiit.js';
 
 
 const pages = [
@@ -45,7 +47,7 @@ export function toggleTheme() {
   ui.hiitTitle = document.querySelectorAll('.hiit-title');
   ui.hiitDescription = document.querySelectorAll('.no-of-exercises');
 
-  let elem = document.body;
+  const elem = document.body;
   if (ui.darkMode.classList.contains('hidden')) {
     ui.darkMode.classList.remove('hidden');
     ui.lightMode.classList.add('hidden');
@@ -89,9 +91,7 @@ function buildScreens() {
   }
 }
 
-
-
-//set up the nav bar with buttons
+// set up the nav bar with buttons
 function setupNav() {
   ui.buttons = {};
   for (const page of pages) {
@@ -110,13 +110,8 @@ function setupNav() {
       page.screen === 'Default' ||
       page.screen === 'Custom' ||
       page.screen === 'Dashboard'
-    ) 
-    {
-       ui.mainNav.append(button); // Append to the navigation bar
-    //   } else {
-    //   Append to some other part of the app based on your requirement
-    //   const otherContainer = document.querySelector('.others'); // Example other container
-    //   otherContainer.append(button);
+    ) {
+      ui.mainNav.append(button); // Append to the navigation bar
     }
 
     ui.buttons[page.screen] = button;
@@ -154,22 +149,9 @@ function hideAllScreens() {
 
 function show(e) {
   ui.previousScreen = ui.currentScreen;
-  const screen = e?.target?.dataset?.screen ?? 'Default';  
+  const screen = e?.target?.dataset?.screen ?? 'Default';
   showScreen(screen);
 }
-
-import { checkIfScreenIsLeft } from './timer.js';
-
-// export function showScreen(name) {
-//   hideAllScreens();
-//   if (!ui.screens[name]) {
-//     name = 'Default';
-//   }
-
-//   showElement(ui.screens[name]);
-//   ui.currentScreen = name;
-//   document.title = `SeeFit | ${name}`;
-// }
 
 export function showScreen(name) {
   hideAllScreens();
@@ -195,9 +177,9 @@ function showElement(element) {
 
 export function storeState() {
   history.pushState(
-   ui.currentScreen,
-   ui.currentScreen,
-    `/app/${ui.currentScreen}`
+    ui.currentScreen,
+    ui.currentScreen,
+    `/app/${ui.currentScreen}`,
   );
 }
 
@@ -250,19 +232,19 @@ async function getScreenContent() {
 
 // Modify calcHiitInfo function to utilize convertStoMs
 async function calcHiitInfo(clickedHiit) {
-    const exercise = await getAllExercises();
-    const filteredExercises = exercise.filter(
-        (exercise) => exercise.hiit_id === clickedHiit
-    );
-    let totalSeconds = 0;
-    let exerciseCount = 0;
+  const exercise = await getAllExercises();
+  const filteredExercises = exercise.filter(
+    (exercise) => exercise.hiit_id === clickedHiit,
+  );
+  let totalSeconds = 0;
+  let exerciseCount = 0;
 
-    for (const exercise of filteredExercises) {
+  for (const exercise of filteredExercises) {
     totalSeconds += exercise.exercise_duration += exercise.rest_duration;
 
-        exerciseCount++;
-    }
-    return { duration: convertStoMs(totalSeconds), exerciseCount };
+    exerciseCount++;
+  }
+  return { duration: convertStoMs(totalSeconds), exerciseCount };
 }
 
 export function convertStoMs(seconds) {
@@ -311,7 +293,7 @@ export async function populateHiitCards(hiits) {
     // Append SVG icon
     const svgIcon = document.createElementNS(
       'http://www.w3.org/2000/svg',
-      'svg'
+      'svg',
     );
     svgIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     svgIcon.setAttribute('height', '24px');
@@ -321,7 +303,7 @@ export async function populateHiitCards(hiits) {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute(
       'd',
-      'M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'
+      'M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z',
     );
     svgIcon.append(path);
 
@@ -339,7 +321,7 @@ export async function populateHiitCards(hiits) {
       section,
       hiitInfo,
       deleteIcon,
-      svgIcon
+      svgIcon,
     );
   }
   initi();
@@ -356,13 +338,10 @@ function checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, sv
   }
 }
 
-import { createDeletePopup } from './deletehiit.js';
-
 function handleDeleteEvent(deleteIcon, hiit) {
   deleteIcon.addEventListener('click', function (event) {
     event.stopPropagation();
     createDeletePopup(hiit, event);
-    return;
   });
 }
 
@@ -370,7 +349,7 @@ export async function buildHiitExercisePage(clickedHiit) {
   document.querySelector('.hiit-exercises').innerHTML = '';
   showScreen('Hiit');
   const hiits = await getAllHiits();
-  const { duration, exerciseCount } = await calcHiitInfo(clickedHiit); 
+  const { duration, exerciseCount } = await calcHiitInfo(clickedHiit);
 
   // Find the clicked HIIT object
   const clickedHiitObj = hiits.find((hiit) => hiit.hiits_id === clickedHiit);
@@ -389,12 +368,12 @@ export async function buildHiitExercisePage(clickedHiit) {
 
   const exercise = await getAllExercises();
   const filteredExercises = exercise.filter(
-    (exercise) => exercise.hiit_id === clickedHiit
+    (exercise) => exercise.hiit_id === clickedHiit,
   );
 
   const startHiitBtn = document.createElement('button');
   startHiitBtn.dataset.screen = 'PerformHiit';
-  
+
   startHiitBtn.classList.add('start-hiit');
   startHiitBtn.textContent = 'Start Hiit';
   startHiitBtn.addEventListener('click', function () {
@@ -459,7 +438,7 @@ function toggleDropdownIcon(content, dropDown) {
     // Create SVG element with alternative path
     const svg = document.createElementNS(
       'http://www.w3.org/2000/svg',
-      'svg'
+      'svg',
     );
     svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     svg.setAttribute('height', '24px');
@@ -469,11 +448,11 @@ function toggleDropdownIcon(content, dropDown) {
     // Create alternative path element
     const path = document.createElementNS(
       'http://www.w3.org/2000/svg',
-      'path'
+      'path',
     );
     path.setAttribute(
       'd',
-      'm296-345-56-56 240-240 240 240-56 56-184-184-184 184Z'
+      'm296-345-56-56 240-240 240 240-56 56-184-184-184 184Z',
     );
     // Append alternative path to SVG
     svg.appendChild(path);

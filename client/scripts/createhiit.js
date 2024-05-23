@@ -1,4 +1,5 @@
-import { showScreen } from './script.js';
+import { showScreen, getAssets } from './script.js';
+
 
 const createForm = {};
 let exerciseDataArray = [];
@@ -17,7 +18,7 @@ function getCreateHandles() {
   createForm.add = document.querySelector('.createWorkoutIcon');
   createForm.createHiit = document.querySelector('.createHiitIcon');
   createForm.addedExerciseHolder = document.querySelector(
-    '.added-exercises-holder'
+    '.added-exercises-holder',
   );
   createForm.createHiitCard = document.querySelector('.createHiitCard');
   createForm.eventInfo = document.querySelector('.event-info');
@@ -55,28 +56,26 @@ function getHiitData() {
 function getExerciseData() {
   const name = createForm.exerciseName.value.trim();
   const description = createForm.exerciseDescription.value.trim();
-  const exercise_duration = createForm.exerciseDuration.value.trim();
-  const rest_duration = createForm.exerciseRestDuration.value.trim();  return { name, description, exercise_duration, rest_duration };
+  const exerciseDuration = createForm.exerciseDuration.value.trim();
+  const restDuration = createForm.exerciseRestDuration.value.trim(); return { name, description, exerciseDuration, restDuration };
 }
 
 // Function to generate UUID
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
-}       
-
-import { getAssets } from './script.js';
+}
 
 async function sendHiitData() {
-      const customHiitCards = document.querySelector('.custom-hiit-card');
-      customHiitCards.innerHTML = '';
+  const customHiitCards = document.querySelector('.custom-hiit-card');
+  customHiitCards.innerHTML = '';
 
-  const hiit_id = generateUUID(); // Generate a UUID for HIIT ID
+  const hiitId = generateUUID(); // Generate a UUID for HIIT ID
   const hiitData = {
-    hiit_id, ...getHiitData(), 
+    hiitId, ...getHiitData(),
   };
   showScreen('Custom');
   getAssets();
@@ -89,13 +88,13 @@ async function sendHiitData() {
     body: JSON.stringify(hiitData),
   });
   if (responseHiit.ok) {
-    sendExerciseData(hiit_id);
+    sendExerciseData(hiitId);
     clearExistingFormDataOnCreate();
     createForm.eventInfo.textContent = 'HIIT created successfully';
-      createForm.eventInfo.style.opacity = '1';
-      setTimeout(() => {
-        createForm.eventInfo.style.opacity = '0';
-      }, 3000);
+    createForm.eventInfo.style.opacity = '1';
+    setTimeout(() => {
+      createForm.eventInfo.style.opacity = '0';
+    }, 3000);
   } else {
     console.log('Failed to create HIIT', responseHiit);
   }
@@ -108,10 +107,10 @@ function clearExistingFormDataOnCreate() {
 }
 
 // Function to send exercise data
-async function sendExerciseData(hiit_id) {
+function sendExerciseData(hiitId) {
   // Associate each exercise with the generated HIIT ID
   exerciseDataArray.forEach(async (exerciseData) => {
-    exerciseData.hiit_id = hiit_id;
+    exerciseData.hiit_id = hiitId;
 
     const responseExercise = await fetch('/exercise', {
       method: 'POST',
@@ -157,10 +156,10 @@ function AddExercise() {
   createForm.exerciseRestDuration.value = '';
   createForm.addBtn.textContent = 'Add Exercise';
   createForm.eventInfo.textContent = 'Exercise added successfully';
-        createForm.eventInfo.style.opacity = '1';
-        setTimeout(() => {
-          createForm.eventInfo.style.opacity = '0';
-        }, 3000);
+  createForm.eventInfo.style.opacity = '1';
+  setTimeout(() => {
+    createForm.eventInfo.style.opacity = '0';
+  }, 3000);
 }
 
 function updateExerciseList() {
