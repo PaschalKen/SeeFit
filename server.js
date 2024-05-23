@@ -53,8 +53,11 @@ app.get('/app/*/', (req, res) => {
   res.sendFile(`${__dirname}/client/index.html`);
 });
 
+const port = 8080;
 
-app.listen(8080);
+app.listen(port, () => {
+  console.log(`Server listening on Port:${port}`);
+});
 
 
 

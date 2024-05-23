@@ -17,6 +17,7 @@ A high-intensity interval training (HIIT) app that enables users to create and p
 - [Project structure](#project-structure)
 - [Database](#database)
 - [Improvements since first draft](#improvements)
+- [AI](#Ai)
 
 
 
@@ -49,7 +50,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 6. Editing/deleting a Hiit upon creation
 7. Theme - Light mode and dark mode
 8. Progress traching
-9. Installable as a web app
+9. A Progressive web app (Installable as a web app)
 
 ## Usage
 
@@ -121,6 +122,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 
 - The web app will now be installed and accessible from your device's home screen or app launcher.
 
+- I chose to make the project a progressive web app to provide users ability to install the app on their device, providing a one-tap access just like traditional apps. By implementing this, I have been able to deliver an app-like experience to the users within the browser, offering convinient, efficient, and easy way to access and use the app.  Making this app a Progressive Web App adheres to Jakob Nielsen's "Match Between System and the Real World" heuristic by delivering a native app-like capabilities within the browser environment allows PWAs to speak the users' language and follow real-world conventions, reducing cognitive load and enhancing usability.
 
 ### Toggling Theme
 - You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app
@@ -163,6 +165,9 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 - **README.md**
 - **server.js**
 
+- I chose to use this folder structure to organise the various componenrs of the application in a logical and modular manner. This approach promotes code maintainability and scalability. I have separated the client-side code and the server-side code into different folders. The `client` folder contains all the front-end assets, including the `media` files(images), `screen` components, and `scripts` for specific functionalities that have to do with the front-end. 
+- The `server.js` file is the entry point for the node.js server, handling server-side logic and routing.
+- The `sw.js` file is the service worker script which enables caching and backround sync for the Progressive Web App.
 
 ## API
 The server side of the project contains a file `hiitboard.js` which contains APIs that communicate with the server to perform the following operations:
@@ -182,6 +187,21 @@ The server side of the project contains a file `hiitboard.js` which contains API
 This web app was developed using `SQLite` to store Hiit data. This is because SQLite is self-contained which means it requires minimal support from the operating system or external library. SQLite is fast, which can be attributed to the fact that it is a lightweight DBMS with simple operations and minimal design.
 - The database is created bt the `init()` function in the `hiitboard.js` when the server is ran. 
 - The folder `migrations-sqlite` contains the file `001-initial.sql` which contains the script that create the database entities(tables), fields(columns), and inserts data for the default hiits.
+
+
+## Improvements
+
+- Removal of menu button; I had a menu section which had pages like `settings`, `favourites`, and `about`.
+    - I decided to replace the setiings page with theme icons since the only setting I was going to implement was theme.
+    - I replaced the favourites page with a dashboard page because I the users would be more concerned with viewing their records and progress than saving a hiit
+- Implementation of One-page app using screens: I initially had just one html file, index.html where I hid and displayed sections when needed. I decided to get rid of this because it was not scalable as the app become more complicated.
+
+
+## AI
+
+
+
+
 
 
 

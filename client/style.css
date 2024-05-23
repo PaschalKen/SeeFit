@@ -160,7 +160,7 @@ main .screen article .custom-hiit-card{
 }
 
 main .screen article .custom-hiit-card section .hiit-info .delete-icon {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: inherit;
   border: none;
   border-radius: 6.5px;
   z-index: 999;
@@ -244,6 +244,10 @@ main .screen article .exercise-page .exercise .hiit-desc {
   margin: 1em 0 1em 0;
 }
 
+.light-mode main .screen article .exercise-page .exercise .hiit-desc {
+  color: black;
+}
+
 main .screen article .exercise-page .exercise .hiit-exercises .exercise-card {
   background-color: rgb(18, 24, 34);
   color: white;
@@ -252,6 +256,12 @@ main .screen article .exercise-page .exercise .hiit-exercises .exercise-card {
   padding: 1em;
   display: flex;
   flex-direction: column;
+}
+
+.light-mode main .screen article .exercise-page .exercise .hiit-exercises .exercise-card {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
 }
 
 main
@@ -274,6 +284,10 @@ main .screen article .exercise-page .exercise .hiit-exercises .exercise-card .dr
     position: absolute;
     margin-left: 85%;
     margin-top: 1em;
+}
+
+.light-mode main .screen article .exercise-page .exercise .hiit-exercises .exercise-card .drop-down svg {
+  fill: black;
 }
 
 main
@@ -321,11 +335,20 @@ main .screen article .current-exercise-description {
     min-height: 6em;
 }
 
+.light-mode main .screen article .current-exercise-description {
+  color: black;
+}
+
 main .screen article .current-exercise {
   color: white;
   text-align: center;
   margin: 1em 0 1em 0;
 }
+
+.light-mode main .screen article .current-exercise {
+  color: black;
+}
+
 
 main .screen article .exercise-section {
   display: flex;
@@ -453,9 +476,16 @@ main .screen article .exercise-section .next-exercise {
   min-height: 50px;
 }
 
+.light-mode main .screen article .exercise-section .next-exercise {
+  background-color: rgb(167, 158, 158);
+  color: black;
+}
+
 main .screen article .perform-hiit .timer-buttons {
   text-align: center;
 }
+
+
 
 main .screen article .perform-hiit .timer-buttons .pause,
 main .screen article .perform-hiit .timer-buttons .play {
@@ -463,6 +493,11 @@ main .screen article .perform-hiit .timer-buttons .play {
   height: 10em;
   width: 5em;
   margin-left: 5em;
+}
+
+.light-mode main .screen article .perform-hiit .timer-buttons .pause,
+.light-mode main .screen article .perform-hiit .timer-buttons .play {
+  fill: black;
 }
 
 main .screen article .perform-hiit .timer-buttons .pause:hover {
@@ -485,6 +520,10 @@ main .screen article .perform-hiit .timer-buttons .restart {
   height: 7em;
   width: 3em;
   padding: 0 0 1.5em 2.3em;
+}
+
+.light-mode main .screen article .perform-hiit .timer-buttons .restart {
+  fill: black;
 }
 
 main .screen article .perform-hiit .timer-holder {
@@ -513,7 +552,6 @@ main .screen article .perform-hiit .timer {
     height: 4.5em;
     width: 4.5em;
     text-align: center;
-    box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
     color: white;
     margin: 0em 0 0em -4px;
     font-size: 3em;
@@ -526,11 +564,20 @@ main .screen article .perform-hiit .timer {
     justify-content: center;
 }
 
+.light-mode main .screen article .perform-hiit .timer {
+  color: black;
+  background-color: white;
+}
+
 .perform-hiit .state-info {
   opacity: 0;
   transition: opacity 3s;
   color: white;
   text-align: center;
+}
+
+.light-mode .perform-hiit .state-info {
+  color: black;
 }
 /* zoom in a little bit on cards onHover */
 
@@ -574,6 +621,12 @@ textarea,
   border-radius: 2em;
   margin-bottom: 1em;
   margin-left: 1em;
+}
+
+.light-mode .create-btn,
+.light-mode .add-btn,
+.light-mode .remove-btn {
+    border: 1px solid black;
 }
 
 .add-btn:hover {
