@@ -1,4 +1,3 @@
-
 //Globals
 //Different pages of the app
 
@@ -49,15 +48,11 @@ export function toggleTheme() {
     ui.lightMode.classList.add('hidden');
     elem.classList.remove('light-mode');
     ui.title.classList.remove('light-mode');
-
-
   } else {
     ui.darkMode.classList.add('hidden');
     ui.lightMode.classList.remove('hidden');
     elem.classList.add('light-mode');
     ui.title.classList.add('light-mode');
-
-
   }
 }
 

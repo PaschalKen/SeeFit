@@ -18,8 +18,6 @@ export function handleCompleteHiit() {
   populateDashboard();
 }
 
-
-
 function completedHiitDetails(hiit) {
   let completedHiitDuration = calculateTotalHiitDuration(hiit);
   completedTime += completedHiitDuration;
@@ -47,7 +45,7 @@ async function getCompletedHiitName(exercisesArray, completedDuration) {
   completedHiitDuration.textContent = convertStoM(completedDuration);
 
   section.classList.add('completed-hiit');
-  section.appendChild(completedHiitTitle, completedHiitDuration);
+  section.append(completedHiitTitle, completedHiitDuration);
   completedHiits.appendChild(section);
 }
 

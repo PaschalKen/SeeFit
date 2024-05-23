@@ -66,13 +66,6 @@ function timerRunning() {
 // Function to reset the timer
 function resetTimer() {
   timerElem.timer.textContent = '00:00';
-  timerElem.progressBar.style.setProperty('--progress', '0');
-  currentExerciseIndex = 0;
-  exerciseElapsedTime = 0;
-  hiitElapsedTime = 0;
-  pausedState.elapsedTime = 0;
-  pausedState.currentExerciseIndex = 0;
-
 }
 
 export function convertStoM(time) {
@@ -183,6 +176,11 @@ function resumeTimer() {
 }
 
 function stopTimer() {
+
+  if (timerElem.pauseButton.classList.contains('hidden')) {
+    timerElem.playButton.classList.add('hidden');
+    timerElem.pauseButton.classList.remove('hidden');
+  }
   timerElem.stateInfo.textContent = 'Restart';
   timerElem.stateInfo.style.opacity = '1';
   setTimeout(() => {
