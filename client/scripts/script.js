@@ -78,7 +78,6 @@ function getHandles() {
   ui.createHiit = document.querySelector('aside > svg');
   templates.screen = document.querySelector('#screen-template');
   ui.eventInfo = document.querySelector('.event-info');
-
 }
 
 function buildScreens() {
@@ -273,23 +272,13 @@ export async function getAllHiits() {
 
 export async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
-  const customHiitCards = document.querySelector('.custom-hiit-card');
-  
-  // Clear existing HIITs
 
-  if (!defaultHiitCards || !customHiitCards) {
-    console.error('No default or custom HIIT card found');
-    return;
-  }
-  
+  // Clear existing HIITs
   defaultHiitCards.innerHTML = '';
-  customHiitCards.innerHTML = '';
 
   for (const hiit of hiits) {
     const { duration, exerciseCount } = await calcHiitInfo(hiit.hiits_id);
-
     const section = document.createElement('section');
-    
     const h3 = document.createElement('h3');
     h3.classList.add('hiit-title');
     h3.textContent = hiit.name;
@@ -303,7 +292,7 @@ export async function populateHiitCards(hiits) {
 
     const deleteIcon = document.createElement('button');
     deleteIcon.classList.add('delete-icon');
-    
+
     // Append SVG icon
     const svgIcon = document.createElementNS(
       'http://www.w3.org/2000/svg',
@@ -319,7 +308,7 @@ export async function populateHiitCards(hiits) {
       'd',
       'M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'
     );
-    svgIcon.appendChild(path);
+    svgIcon.append(path);
 
     section.append(h3, hiitInfo);
     hiitInfo.append(noOfExercises);
@@ -327,21 +316,28 @@ export async function populateHiitCards(hiits) {
     section.addEventListener('click', () => {
       buildHiitExercisePage(hiit.hiits_id);
     });
-        handleDeleteEvent(deleteIcon, hiit);
+    handleDeleteEvent(deleteIcon, hiit);
     // Determine where to append the HIIT card based on its type
-    checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, svgIcon);
-}
- initi();
+    checkHiitType(
+      hiit,
+      defaultHiitCards,
+      section,
+      hiitInfo,
+      deleteIcon,
+      svgIcon
+    );
+  }
+  initi();
 }
 
 function checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, svgIcon) {
   if (hiit.type === 'default') {
     defaultHiitCards.append(section);
   } else if (hiit.type === 'custom') {
-      const customHiitCards = document.querySelector('.custom-hiit-card');
-      customHiitCards.append(section);
-      hiitInfo.append(deleteIcon);
-      deleteIcon.append(svgIcon);
+    const customHiitCards = document.querySelector('.custom-hiit-card');
+    customHiitCards.append(section);
+    hiitInfo.append(deleteIcon);
+    deleteIcon.append(svgIcon);
   }
 }
 
@@ -414,9 +410,6 @@ function handleExerciseCards(filteredExercises) {
 
     const exerciseInfo = document.createElement('section');
     exerciseInfo.classList.add('exercise-info');
-
-    exerciseInfo.append(exerciseTitle);
-    exerciseInfo.append(exerciseDuration);
 
     const dropDown = document.createElement('section');
     dropDown.classList.add('drop-down');
@@ -500,7 +493,7 @@ function setup() {
   setupNav();
   window.addEventListener('popstate', loadInitialScreen);
   loadInitialScreen();
-  getAssets()
+  getAssets();
 }
 
 setup();

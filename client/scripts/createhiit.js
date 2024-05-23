@@ -71,6 +71,8 @@ function generateUUID() {
 import { getAssets } from './script.js';
 
 async function sendHiitData() {
+      const customHiitCards = document.querySelector('.custom-hiit-card');
+      customHiitCards.innerHTML = '';
 
   const hiit_id = generateUUID(); // Generate a UUID for HIIT ID
   const hiitData = {
