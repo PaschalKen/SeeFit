@@ -6,7 +6,6 @@ import { start } from './timer.js';
 
 import { initi } from './createhiit.js';
 
-import { toggleTheme } from './theme.js';
 
 const pages = [
   {
@@ -40,7 +39,27 @@ const ui = {};
 
 const templates = {};
 
+export function toggleTheme() {
+  ui.hiitTitle = document.querySelectorAll('.hiit-title');
+  ui.hiitDescription = document.querySelectorAll('.no-of-exercises');
 
+  let elem = document.body;
+  if (ui.darkMode.classList.contains('hidden')) {
+    ui.darkMode.classList.remove('hidden');
+    ui.lightMode.classList.add('hidden');
+    elem.classList.remove('light-mode');
+    ui.title.classList.remove('light-mode');
+
+
+  } else {
+    ui.darkMode.classList.add('hidden');
+    ui.lightMode.classList.remove('hidden');
+    elem.classList.add('light-mode');
+    ui.title.classList.add('light-mode');
+
+
+  }
+}
 
 function getHandles() {
   ui.mainNav = document.querySelector('header > nav');
@@ -252,16 +271,19 @@ export async function getAllHiits() {
   }
 }
 
-async function populateHiitCards(hiits) {
+export async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
+  const customHiitCards = document.querySelector('.custom-hiit-card');
   
-    setTimeout(() => {
-    const customHiitCards = document.querySelector('.custom-hiit-card');
-    customHiitCards.innerHTML = '';
-  }, 10000);
-
   // Clear existing HIITs
+
+  if (!defaultHiitCards || !customHiitCards) {
+    console.error('No default or custom HIIT card found');
+    return;
+  }
+  
   defaultHiitCards.innerHTML = '';
+  customHiitCards.innerHTML = '';
 
   for (const hiit of hiits) {
     const { duration, exerciseCount } = await calcHiitInfo(hiit.hiits_id);
@@ -316,12 +338,10 @@ function checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, sv
   if (hiit.type === 'default') {
     defaultHiitCards.append(section);
   } else if (hiit.type === 'custom') {
-    setTimeout(() => {
       const customHiitCards = document.querySelector('.custom-hiit-card');
       customHiitCards.append(section);
       hiitInfo.append(deleteIcon);
       deleteIcon.append(svgIcon);
-    }, 10000);
   }
 }
 
@@ -467,7 +487,12 @@ function handleDropdown(content) {
   }
 }
 
-async function setup() {
+export async function getAssets() {
+  await getAllHiits();
+  await getAllExercises();
+}
+
+function setup() {
   getHandles();
   buildScreens();
   getScreenContent();
@@ -475,8 +500,7 @@ async function setup() {
   setupNav();
   window.addEventListener('popstate', loadInitialScreen);
   loadInitialScreen();
-    await getAllHiits();
-    await getAllExercises();
+  getAssets()
 }
 
 setup();

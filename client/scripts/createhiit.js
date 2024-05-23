@@ -68,11 +68,16 @@ function generateUUID() {
   });
 }       
 
+import { getAssets } from './script.js';
+
 async function sendHiitData() {
+
   const hiit_id = generateUUID(); // Generate a UUID for HIIT ID
   const hiitData = {
     hiit_id, ...getHiitData(), 
   };
+  showScreen('Custom');
+  getAssets();
 
   const responseHiit = await fetch('/hiits', {
     method: 'POST',
