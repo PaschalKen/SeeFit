@@ -47,7 +47,7 @@ async function handleDeleteHiit(req, res) {
 app.delete('/hiits/:id', handleDeleteHiit);
 app.get('/hiits', getHiits);
 app.post('/hiits', express.json(), postHiit);
-app.post('/exercises', express.json(), postExercise);
+app.post('/exercise', express.json(), postExercise);
 app.get('/exercise', getExercise);
 app.get('/app/*/', (req, res) => {
   res.sendFile(`${__dirname}/client/index.html`);

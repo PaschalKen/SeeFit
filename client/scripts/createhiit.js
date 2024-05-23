@@ -106,7 +106,7 @@ async function sendExerciseData(hiit_id) {
   exerciseDataArray.forEach(async (exerciseData) => {
     exerciseData.hiit_id = hiit_id;
 
-    const responseExercise = await fetch('/exercises', {
+    const responseExercise = await fetch('/exercise', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

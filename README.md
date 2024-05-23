@@ -11,8 +11,10 @@ A high-intensity interval training (HIIT) app that enables users to create and p
 - [Installation](#installation)
 - [Running](#running)
 - [Ui](#ui)
-- [Usage](#usage)
 - [Features](#features)
+- [Usage](#usage)
+- [API](#api)
+
 
 
 ## Installation
@@ -34,6 +36,17 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 3. The navigation bar which contains the `Default`, `Custom`, and `Dashboard` is also always displayed at every point while using the app for quick access to desired page.
 
 4. Each page has its own content which will be displayed according to what you click.
+
+## Features
+1. Create custom hit from scratch
+2. Start/Perform a hiit
+3. Record keeping
+4. Audio Cues
+5. Deleting a Hiit
+6. Editing/deleting a Hiit upon creation
+7. Theme - Light mode and dark mode
+8. Progress traching
+9. Installable as a web app
 
 ## Usage
 
@@ -67,7 +80,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
     - Upon adding a new exercise, a section that says `Exercise added successfully` fades in for 3 seconds to let the user know the exercise has been added. This supports the Nielsen's 1st usability Heuristic which suggests "visibility of system status".
     - the users can choose to add as many exercises as they wish. 
     - Users can `delete` and `edit` added exercises upon creating a hiit so they dont feel stuck while creating a hiit if they have made a mistake. this aligns with the Nielsen's 1st usability Heuristic which suggests "user control and freedom".
-    - A hiit can be editted by clicking on the element that the element that bears the name of the exercise they wish to edit then the previously inputed values will be populated back into the input fields for editing. The add exercise button will change to an `Update exercise` button since the exercise is to be editted. and when the update exercise button is clicked, the new changes will be implemented.
+    - A hiit can be editted by clicking on the element that the element that bears the name of the exercise they wish to edit then the previously inputed values will be populated back into the input fields for editing. The add exercise button will change to an `Update exercise` button since the exercise is to be editted and when the update exercise button is clicked, the new changes will be implemented.
 
 - Click on `Create Hiit` to create the hiit.
     - If the hiit is successfully created, a section that says `Hiit created successfully` fades in for 3 seconds to let the user know the Hiit has been created.
@@ -95,16 +108,33 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
     - A `finished Hiits` section that displays the `name` and `duration` of each completed hiit.
 
 ### Installing `SeeFit` as a Progressive Web App
-- click on the download icon on /////////////continue here
+- Open your browser and navigate to the URL where the web app is hosted
+
+- In the browser `address bar`, you will see a `desktop-like icon`. Click on that icon to access the installation options.
+
+- Select the install option to install the web app.
+
+- if prompted, confirm the stallation by clicking `Install` or `Add`.
+
+- The web app will now be installed and accessible from your device's home screen or app launcher.
 
 
 ### Toggling Theme
 - You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app
 
-## Features
+
 
 List the main features of your project here.
 
+
+## API
+I implemented the following APIs
+- `/hiits`
+    - GET: Retrieve all the Hiits in my SQLite database.
+    - POST: Upload Hiits created by users to the database
+- `/hiits/:id`
+    - DELETE:  Delete a hiit from the database
+- exercise
 
 
 
