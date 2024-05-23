@@ -205,13 +205,9 @@ This web app was developed using `SQLite` to store Hiit data. This is because SQ
 
 ## AI
 
+- I utilised Ai to generate appropriate comments for my functions.
 
 
 
 
 
-
-//make the seefit lead you back to the default
-//on restart, if the hiit was paused, change the icon back to pause
-//switch to em
-//add comments
