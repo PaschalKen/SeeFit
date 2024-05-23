@@ -36,6 +36,9 @@ const pages = [
 let theme;
 const ui = {};
 
+
+export { ui };
+
 const templates = {};
 
 export function toggleTheme() {
@@ -155,11 +158,28 @@ function show(e) {
   showScreen(screen);
 }
 
+import { checkIfScreenIsLeft } from './timer.js';
+
+// export function showScreen(name) {
+//   hideAllScreens();
+//   if (!ui.screens[name]) {
+//     name = 'Default';
+//   }
+
+//   showElement(ui.screens[name]);
+//   ui.currentScreen = name;
+//   document.title = `SeeFit | ${name}`;
+// }
+
 export function showScreen(name) {
   hideAllScreens();
   if (!ui.screens[name]) {
     name = 'Default';
   }
+
+  const currentScreen = ui.currentScreen; // Get the current screen
+  checkIfScreenIsLeft(currentScreen, name); // Check if leaving "PerformHiit" screen
+
   showElement(ui.screens[name]);
   ui.currentScreen = name;
   document.title = `SeeFit | ${name}`;

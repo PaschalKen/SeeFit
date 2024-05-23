@@ -1,9 +1,6 @@
-import {
-  getAllExercises,
-  showScreen,
-  buildHiitExercisePage,
-  getAllHiits
-} from './script.js';
+import { getAllExercises, showScreen } from './script.js';
+
+import { handleCompleteHiit } from './record.js';
 
 // Global variables
 let exercisesArray = [];
@@ -18,20 +15,16 @@ let pausedState = {
   currentExerciseIndex: 0,
 };
 
-export {exercisesArray};
+export {exercisesArray, currentExerciseIndex, exerciseElapsedTime, hiitElapsedTime, totalHiitDuration, intervalId, pausedState};
 
 const timerElem = {};
 
 const increment = 1;
 
-import { handleCompleteHiit } from './record.js';
-
 function getTimerHandles() {
   timerElem.currentExercise = document.querySelector('.current-exercise');
   timerElem.nextExercise = document.querySelector('.next-exercise');
-  timerElem.exerciseDescription = document.querySelector(
-    '.current-exercise-description'
-  );
+  timerElem.exerciseDescription = document.querySelector('.current-exercise-description');
   timerElem.timer = document.querySelector('.timer');
   timerElem.pauseButton = document.querySelector('.pause');
   timerElem.playButton = document.querySelector('.play');
@@ -48,6 +41,7 @@ function timerRunning() {
     clearInterval(intervalId);
     handleCompleteHiit();
     resetTimer();
+    resetHiitData();
   }
 
   const currentExercise = exercisesArray[currentExerciseIndex];
@@ -61,6 +55,30 @@ function timerRunning() {
   timerElem.exerciseDescription.textContent = currentExerciseDescription;
   timerElem.nextExercise.textContent = 'Next: ' + nextExerciseName;
   moveToNextActivity(currentExercise);
+}
+
+// import { ui } from './script.js';
+
+export function checkIfScreenIsLeft(currentScreen, newScreen) {
+  if (currentScreen === 'PerformHiit' && newScreen !== 'PerformHiit') {
+    // Reset the necessary variables here
+    resetHiitData();
+    clearInterval(intervalId);
+    // Any other reset logic you need
+  }
+}
+
+export function resetHiitData() {
+  // Reset the timer-related variables
+  exercisesArray = [];
+  currentExerciseIndex = 0;
+  exerciseElapsedTime = 0;
+  hiitElapsedTime = 0;
+  totalHiitDuration = 0;
+  pausedState = {
+    elapsedTime: 0,
+    currentExerciseIndex: 0,
+  };
 }
 
 // Function to reset the timer
@@ -176,7 +194,6 @@ function resumeTimer() {
 }
 
 function stopTimer() {
-
   if (timerElem.pauseButton.classList.contains('hidden')) {
     timerElem.playButton.classList.add('hidden');
     timerElem.pauseButton.classList.remove('hidden');
@@ -189,7 +206,6 @@ function stopTimer() {
 
   // Clear the interval
   clearInterval(intervalId);
-
   // Reset timer variables
   currentExerciseIndex = 0;
   exerciseElapsedTime = 0;
