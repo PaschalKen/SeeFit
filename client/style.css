@@ -26,7 +26,7 @@ header {
   top: 0;
   left: 0;
   height: 6vh;
-  box-shadow: 0px 8px 10px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0em 0.5em 0.63em -0.63em rgba(0, 0, 0, 0.75);
 }
 
 header ul {
@@ -39,7 +39,7 @@ header ul {
 }
 
 header li {
-  height: 50px;
+  height: 3.13em;
 }
 
 header a:hover {
@@ -119,12 +119,12 @@ header h3 {
 }
 
 .event-info-holder .event-info {
-      background-color: grey;
-    height: 2em;
-    width: 80%;
-    border-radius: 2em;
-    opacity: 0;
-    transition: opacity 3s;
+  background-color: grey;
+  height: 2em;
+  width: 80%;
+  border-radius: 2em;
+  opacity: 0;
+  transition: opacity 3s;
 }
 
 aside {
@@ -153,20 +153,28 @@ aside:hover {
 }
 
 main .screen article .default-hiit-card,
-main .screen article .custom-hiit-card{
+main .screen article .custom-hiit-card {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(18.75em, 1fr));
+  grid-gap: 1.25em;
 }
 
 main .screen article .custom-hiit-card section .hiit-info .delete-icon {
   background-color: inherit;
   border: none;
-  border-radius: 6.5px;
+  border-radius: 0.41;
   z-index: 999;
 }
 
-.light-mode main .screen article .custom-hiit-card section .hiit-info .delete-icon svg {
+.light-mode
+  main
+  .screen
+  article
+  .custom-hiit-card
+  section
+  .hiit-info
+  .delete-icon
+  svg {
   fill: black;
 }
 
@@ -178,8 +186,8 @@ main .screen .card {
   padding: 2em;
   height: 12rem;
   border: none;
-  border-radius: 12px;
-  margin: 3%;
+  border-radius: 0.75em;
+  margin: 1em 1.5em 1em 1.5em;
   box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
   color: #fff;
   position: relative;
@@ -210,7 +218,7 @@ main .screen section .hiit-title {
 main .screen section .hiit-info {
   display: flex;
   flex-direction: row;
-      column-gap: 10%;
+  column-gap: 10%;
 }
 
 main .screen section .hiit-info .delete-Icon {
@@ -261,7 +269,14 @@ main .screen article .exercise-page .exercise .hiit-exercises .exercise-card {
   flex-direction: column;
 }
 
-.light-mode main .screen article .exercise-page .exercise .hiit-exercises .exercise-card {
+.light-mode
+  main
+  .screen
+  article
+  .exercise-page
+  .exercise
+  .hiit-exercises
+  .exercise-card {
   background-color: white;
   color: black;
   box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
@@ -282,14 +297,30 @@ main .screen article .exercise-page .exercise .hiit-exercises .exercise-card p {
   color: green;
 }
 
-main .screen article .exercise-page .exercise .hiit-exercises .exercise-card .drop-down {
-    text-align: end;
-    position: absolute;
-    margin-left: 85%;
-    margin-top: 1em;
+main
+  .screen
+  article
+  .exercise-page
+  .exercise
+  .hiit-exercises
+  .exercise-card
+  .drop-down {
+  text-align: end;
+  position: absolute;
+  margin-left: 85%;
+  margin-top: 1em;
 }
 
-.light-mode main .screen article .exercise-page .exercise .hiit-exercises .exercise-card .drop-down svg {
+.light-mode
+  main
+  .screen
+  article
+  .exercise-page
+  .exercise
+  .hiit-exercises
+  .exercise-card
+  .drop-down
+  svg {
   fill: black;
 }
 
@@ -320,7 +351,7 @@ main .screen article .exercise-page .start-hiit {
   border-radius: 2em;
   box-shadow: none;
   position: fixed;
-  bottom: 20px;
+  bottom: 1.25em;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
@@ -335,7 +366,7 @@ main .screen article .current-exercise-description {
   color: white;
   text-align: center;
   margin: 1em 0 1em 0;
-    min-height: 6em;
+  min-height: 6em;
 }
 
 .light-mode main .screen article .current-exercise-description {
@@ -351,7 +382,6 @@ main .screen article .current-exercise {
 .light-mode main .screen article .current-exercise {
   color: black;
 }
-
 
 main .screen article .exercise-section {
   display: flex;
@@ -387,75 +417,100 @@ main .screen article .savedHiits .records-holder {
 }
 
 main .screen article .savedHiits .records-holder section {
-    display: flex;
-    column-gap: 3em;
+  display: flex;
+  column-gap: 3em;
 }
 
 main .screen article .savedHiits .records-holder section .total-time {
-    height: 9em;
-    width: 9em;
-    border-radius: 50%;
-        text-align: center;
-        border: 5px solid yellow;
-
-            text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-        font-size: 23px;
+  height: 9em;
+  width: 9em;
+  border-radius: 50%;
+  text-align: center;
+  border: 0.31em solid yellow;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.44em;
 }
 
-.light-mode main .screen article .savedHiits .records-holder section .total-time {
+.light-mode
+  main
+  .screen
+  article
+  .savedHiits
+  .records-holder
+  section
+  .total-time {
   color: black;
 }
 main .screen article .savedHiits .records-holder section .total-exercises {
-    height: 7em;
-    width: 7em;
-    border-radius: 50%;
-        text-align: center;
-        border: 5px solid purple;
+  height: 7em;
+  width: 7em;
+  border-radius: 50%;
+  text-align: center;
+  border: 0.31em solid purple;
 
-            text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-        font-size: 23px;
-
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.44em;
 }
 
-.light-mode main .screen article .savedHiits .records-holder section .total-exercises {
+.light-mode
+  main
+  .screen
+  article
+  .savedHiits
+  .records-holder
+  section
+  .total-exercises {
   color: black;
 }
 
 main .screen article .savedHiits .records-holder section .total-hiits {
-    height: 7em;
-    width: 7em;
-    border-radius: 50%;
-    text-align: center;
-    border: 5px solid blue;
+  height: 7em;
+  width: 7em;
+  border-radius: 50%;
+  text-align: center;
+  border: 0.31em solid blue;
 
-        text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-        font-size: 23px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.44em;
 }
 
-.light-mode main .screen article .savedHiits .records-holder section .total-hiits {
+.light-mode
+  main
+  .screen
+  article
+  .savedHiits
+  .records-holder
+  section
+  .total-hiits {
   color: black;
 }
 
 main .screen article .savedHiits .records-holder section .span {
-  font-size: 12px;
-    padding-top: 8px;
-    padding-left: 3px;
+  font-size: 0.75em;
+  padding-top: 0.5em;
+  padding-left: 0.19em;
 }
 
 main .screen article section .completed-hiits .title-finished {
   margin: 1em;
 }
 
-main .screen article section .completed-hiits .finished-hiits-holder .completed-hiit {
+main
+  .screen
+  article
+  section
+  .completed-hiits
+  .finished-hiits-holder
+  .completed-hiit {
   display: flex;
   flex-direction: column;
   margin: 1em 0 1em 0;
@@ -465,10 +520,16 @@ main .screen article section .completed-hiits .finished-hiits-holder .completed-
   border-radius: 1em;
 }
 
-main .screen article section .completed-hiits .finished-hiits-holder .completed-hiit p {
+main
+  .screen
+  article
+  section
+  .completed-hiits
+  .finished-hiits-holder
+  .completed-hiit
+  p {
   color: green;
 }
-
 
 main .screen article .exercise-section .next-exercise {
   background-color: rgb(18, 24, 34);
@@ -476,7 +537,7 @@ main .screen article .exercise-section .next-exercise {
   padding-top: 1.8em;
   margin-left: auto;
   width: 10em;
-  min-height: 50px;
+  min-height: 3.13em;
 }
 
 .light-mode main .screen article .exercise-section .next-exercise {
@@ -487,8 +548,6 @@ main .screen article .exercise-section .next-exercise {
 main .screen article .perform-hiit .timer-buttons {
   text-align: center;
 }
-
-
 
 main .screen article .perform-hiit .timer-buttons .pause,
 main .screen article .perform-hiit .timer-buttons .play {
@@ -538,33 +597,33 @@ main .screen article .perform-hiit .timer-holder {
 }
 
 main .screen article .perform-hiit .timer-holder .timer-progress-holder {
-    background: conic-gradient(green var(--progress), #e3e3e3 var(--progress));
-    border-radius: 50%;
-    height: 13em;
-    width: 13em;
-    padding: 1em;
-    display: flex;
-    align-items: center;
-    text-align: end;
-    position: relative;
-    box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
+  background: conic-gradient(green var(--progress), #e3e3e3 var(--progress));
+  border-radius: 50%;
+  height: 13em;
+  width: 13em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  text-align: end;
+  position: relative;
+  box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
 }
 
 main .screen article .perform-hiit .timer {
-    border-radius: 50%;
-    height: 4.5em;
-    width: 4.5em;
-    text-align: center;
-    color: white;
-    margin: 0em 0 0em -4px;
-    font-size: 3em;
-    z-index: 999;
-    top: 5%;
-    position: absolute;
-    background-color: rgb(11, 15, 22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  border-radius: 50%;
+  height: 4.5em;
+  width: 4.5em;
+  text-align: center;
+  color: white;
+  margin: 0em 0 0em -0.25em;
+  font-size: 3em;
+  z-index: 999;
+  top: 5%;
+  position: absolute;
+  background-color: rgb(11, 15, 22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .light-mode main .screen article .perform-hiit .timer {
@@ -582,29 +641,27 @@ main .screen article .perform-hiit .timer {
 .light-mode .perform-hiit .state-info {
   color: black;
 }
-/* zoom in a little bit on cards onHover */
 
 form {
-  max-width: 500px;
+  max-width: 31.25em;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25em;
   box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
-  border-radius: 5px;
+  border-radius: 0.31em;
   align-items: center;
   justify-content: center;
 }
 
-/* Style the form inputs and buttons */
 input[type='text'],
 input[type='number'],
 textarea,
 .create-btn {
   display: block;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  margin-bottom: 0.63em;
+  padding: 0.5em;
+  border: 0.06em solid #ccc;
+  border-radius: 0.19em;
   box-sizing: border-box;
 }
 
@@ -614,12 +671,12 @@ textarea,
   background-color: white;
   color: black;
   border: none;
-  border-radius: 3px;
+  border-radius: 0.19em;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1em;
+  font-size: 0.06em;
   width: 80vw;
-  max-width: 500px;
+  max-width: 31.25em;
   height: 3em;
   border-radius: 2em;
   margin-bottom: 1em;
@@ -629,7 +686,7 @@ textarea,
 .light-mode .create-btn,
 .light-mode .add-btn,
 .light-mode .remove-btn {
-    border: 1px solid black;
+  border: 0.06em solid black;
 }
 
 .add-btn:hover {
@@ -641,9 +698,9 @@ textarea,
 }
 
 .new-exercise {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 0.06em solid #ddd;
+  padding: 0.63em;
+  margin-bottom: 0.63em;
 }
 
 .removeExerciseBtn {
@@ -700,7 +757,7 @@ label {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 0.31em;
   background-color: white;
 }
 
@@ -715,35 +772,33 @@ label {
 }
 
 .popup {
-      display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 11em;
-    width: 80%;
-    max-width: 22em;
-    border: 2px solid #000;
-    border-radius: 1em;
-    padding: 0;
-
-
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 11em;
+  width: 80%;
+  max-width: 22em;
+  border: 0.13em solid #000;
+  border-radius: 1em;
+  padding: 0;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
+  padding: 1.25em;
   z-index: 10000;
 }
 
 .popup .close-icon {
-    margin: -1.5em 0 0 19em;
-    position: relative;
+  margin: -1.5em 0 0 19em;
+  position: relative;
 }
 
 .popup section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup .card-title {
@@ -751,15 +806,15 @@ label {
 }
 
 .popup section .button {
-    padding: 0.625em;
-    width: 8em;
-    border: none;
-    border-radius: 1.5em;
-    background-color: white;
-    color: #000;
-    cursor: pointer;
-    box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
-    margin: 1em;
+  padding: 0.625em;
+  width: 8em;
+  border: none;
+  border-radius: 1.5em;
+  background-color: white;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 0.625em rgba(78, 71, 71, 0.8);
+  margin: 1em;
 }
 
 .popup section .button:hover {
@@ -768,25 +823,4 @@ label {
 
 .popup .close-icon:hover {
   opacity: 0.5;
-} 
-
-
-@media (max-width: 880px) {
-}
-
-@media (max-width: 500px) {
-  nav {
-    height: 6vh;
-  }
-  .sidebar {
-    width: 100%;
-  }
-  main .screen {
-    margin: 12em 0 0 0;
-  }
-
-  main .screen .card {
-    display: inline-block;
-    margin: 3% 7% 7% 7%;
-  }
 }

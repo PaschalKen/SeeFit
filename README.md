@@ -49,7 +49,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 5. Deleting a Hiit
 6. Editing/deleting a Hiit upon creation
 7. Theme - Light mode and dark mode
-8. Progress traching
+8. Progress tracking
 9. A Progressive web app (Installable as a web app)
 
 ## Usage
@@ -127,14 +127,21 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 ### Toggling Theme
 - You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app
 
+### Audio Cues
+- I implemented audio cue using a sound I created with my voice on audacity. This can help significantly enhance the user experience of SeeFit by providing pace and cadence for exercises that involve rhythmic movements such as jumping jacks or mountain jacks to keep users engaged through out the activity. With this being implemented, the users do not constantly have to stare at their device to check for time as they know the exercise time has elapsed when the audio cue sound stops. This aligns with the Nielsen's 1st usability Heuristic which suggests "visibility of system status" as the system always keeps users informed about what's going on in the app.
+
+
 ## Project Structure
 
 ## Root Directory
 
 - **client**
     - **media**
-        - **192.png**
-        - **512.png**
+        - **audio**
+            - **timer.ogg**
+        - **image**
+            - **192.png**
+            - **512.png**    
     - **screens**
         - **createhiit.inc**
         - **custom.inc**
@@ -149,7 +156,6 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
         - **populatecards.js**
         - **record.js**
         - **script.js**
-        - **theme.js**
         - **timer.js**
     - **index.html**
     - **manifest.json**

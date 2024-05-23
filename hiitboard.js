@@ -23,33 +23,33 @@ export async function findHiit(id) {
   return await db.get('SELECT * FROM Hiits WHERE id = ?', id);
 }
 
-export async function addHiit(hiitId, name, description, type) {
+export async function addHiit(hiit_id, name, description, type) {
   const db = await dbConn;
   return db.run('INSERT INTO Hiits (hiits_id, name, description, type) VALUES (?, ?, ?, ?)', [
-    hiitId,
+    hiit_id,
     name,
     description,
-    type,
+    type
   ]);
-}
+}      
 
 export async function addExercise(
   name,
   description,
-  exerciseDuration,
-  restDuration,
-  hiitId,
+  exercise_duration,
+  rest_duration,
+  hiit_id
 ) {
   const db = await dbConn;
   return db.run(
     'INSERT INTO Exercise (name, description, exercise_duration, rest_duration, hiit_id) VALUES (?, ?, ?, ?, ?)',
-    [name, description, exerciseDuration, restDuration, hiitId],
+    [name, description, exercise_duration, rest_duration, hiit_id]
   );
 }
 
 export async function deleteHiit(id) {
-  const db = await dbConn;
-  return db.run('DELETE FROM Hiits WHERE hiits_id = ?', id);
+    const db = await dbConn;
+    return db.run('DELETE FROM Hiits WHERE hiits_id = ?', id);  
 }
 
 export async function listExercises() {
