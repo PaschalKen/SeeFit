@@ -16,6 +16,7 @@ A high-intensity interval training (HIIT) app that enables users to create and p
 - [API](#api)
 - [Project structure](#project-structure)
 - [Database](#database)
+- [Improvements since first draft](#improvements)
 
 
 
@@ -128,23 +129,39 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 
 ## Root Directory
 
-- **README.md**
-- **index.html**
-- **src**
-  - **components**
-    - `Header.js`
-    - `Footer.js`
-  - **styles**
-    - `main.css`
-    - `theme.css`
-  - **utils**
-    - `helpers.js`
-- **public**
-  - `favicon.ico`
-  - `index.html`
+- **client**
+    - **media**
+        - **192.png**
+        - **512.png**
+    - **screens**
+        - **createhiit.inc**
+        - **custom.inc**
+        - **dashboard.inc**
+        - **default.inc**
+        - **hiit.inc**
+        - **performhiit.inc**
+    - **scripts**
+        - **createhiit.js**
+        - **deletehiit.js**
+        - **index.js**
+        - **populatecards.js**
+        - **record.js**
+        - **script.js**
+        - **theme.js**
+        - **timer.js**
+    - **index.html**
+    - **manifest.json**
+    - **style.css**
+    - **sw.js**
+- **migrations-sqlite**
+    - **001-initial.sql**
+- **gitignore**
+- **database.sqlite**
+- **hiitboard.js**
+- **package-lock.json**
 - **package.json**
-- **.gitignore**
-- **node_modules**
+- **README.md**
+- **server.js**
 
 
 ## API
@@ -158,7 +175,7 @@ The server side of the project contains a file `hiitboard.js` which contains API
     - GET: Retrieve all the Exercises in the database.
     - POST: UPload added exercises added by users to the database.
 - `app`
-    - GET: Serves the _index.html_ from the client in response to GET requests that start with _/app_
+    - GET: Serves the _index.html_ from the client in response to GET requests that start with  _/app_
 
 
 ## Database
