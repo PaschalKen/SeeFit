@@ -1,13 +1,9 @@
-// Globals
-// Different pages of the app
-
 import { start, checkIfScreenIsLeft } from './timer.js';
-
 import { initi } from './createhiit.js';
-
 import { createDeletePopup } from './deletehiit.js';
 
-
+// Globals
+// Different pages of the app
 const pages = [
   {
     screen: 'Default',
@@ -38,11 +34,11 @@ const pages = [
 let theme;
 const ui = {};
 
-
 export { ui };
 
 const templates = {};
 
+// Toggle between dark and light mode
 export function toggleTheme() {
   ui.hiitTitle = document.querySelectorAll('.hiit-title');
   ui.hiitDescription = document.querySelectorAll('.no-of-exercises');
@@ -61,6 +57,7 @@ export function toggleTheme() {
   }
 }
 
+// Get handles to various elements in the UI
 function getHandles() {
   ui.mainNav = document.querySelector('header > nav');
   ui.main = document.querySelector('main');
@@ -80,6 +77,7 @@ function getHandles() {
   ui.eventInfo = document.querySelector('.event-info');
 }
 
+// Build the screens based on the pages array
 function buildScreens() {
   const template = templates.screen;
   for (const page of pages) {
@@ -91,7 +89,7 @@ function buildScreens() {
   }
 }
 
-// set up the nav bar with buttons
+// Set up the navigation bar with buttons
 function setupNav() {
   ui.buttons = {};
   for (const page of pages) {
@@ -105,13 +103,12 @@ function setupNav() {
       styleActiveBtn(button, page.title);
     });
 
-    // Check if the page should be placed in the navigation bar
     if (
       page.screen === 'Default' ||
       page.screen === 'Custom' ||
       page.screen === 'Dashboard'
     ) {
-      ui.mainNav.append(button); // Append to the navigation bar
+      ui.mainNav.append(button);
     }
 
     ui.buttons[page.screen] = button;
@@ -122,7 +119,7 @@ function setupNav() {
   }
 }
 
-// style the active button
+// Style the active button
 function styleActiveBtn(clickedBtn) {
   const activeButton = document.querySelector('.button.active');
   if (activeButton) {
@@ -132,7 +129,7 @@ function styleActiveBtn(clickedBtn) {
   updatePageTitle();
 }
 
-// update the page title
+// Update the page title
 function updatePageTitle() {
   for (const btn of ui.getButtons()) {
     if (btn.classList.contains('active')) {
@@ -141,40 +138,46 @@ function updatePageTitle() {
   }
 }
 
+// Hide all screens
 function hideAllScreens() {
   for (const screen of ui.getScreens()) {
     hideElement(screen);
   }
 }
 
+// Show a specific screen
 function show(e) {
   ui.previousScreen = ui.currentScreen;
   const screen = e?.target?.dataset?.screen ?? 'Default';
   showScreen(screen);
 }
 
+// Show a specific screen and hide all others
 export function showScreen(name) {
   hideAllScreens();
   if (!ui.screens[name]) {
     name = 'Default';
   }
 
-  const currentScreen = ui.currentScreen; // Get the current screen
-  checkIfScreenIsLeft(currentScreen, name); // Check if leaving "PerformHiit" screen
+  const currentScreen = ui.currentScreen;
+  checkIfScreenIsLeft(currentScreen, name);
 
   showElement(ui.screens[name]);
   ui.currentScreen = name;
   document.title = `SeeFit | ${name}`;
 }
 
+// Hide an element by adding the 'hidden' class
 function hideElement(element) {
   element.classList.add('hidden');
 }
 
+// Show an element by removing the 'hidden' class
 function showElement(element) {
   element.classList.remove('hidden');
 }
 
+// Store the current screen state in the browser history
 export function storeState() {
   history.pushState(
     ui.currentScreen,
@@ -183,6 +186,7 @@ export function storeState() {
   );
 }
 
+// Read the current path from the URL
 function readPath() {
   const path = window.location.pathname.slice(5);
   if (path) {
@@ -191,6 +195,7 @@ function readPath() {
   return 'Default';
 }
 
+// Load the initial screen based on the URL path
 function loadInitialScreen() {
   ui.current = readPath();
   const previousButton = ui.buttons[ui.current];
@@ -201,6 +206,7 @@ function loadInitialScreen() {
   showScreen(ui.current);
 }
 
+// Fetch all exercises from the server
 export async function getAllExercises() {
   const response = await fetch('/exercise');
   if (response.ok) {
@@ -210,6 +216,23 @@ export async function getAllExercises() {
   }
 }
 
+// Calculate the total duration and exercise count for a specific HIIT
+async function calcHiitInfo(clickedHiit) {
+  const exercise = await getAllExercises();
+  const filteredExercises = exercise.filter(
+    (exercise) => exercise.hiit_id === clickedHiit,
+  );
+  let totalSeconds = 0;
+  let exerciseCount = 0;
+
+  for (const exercise of filteredExercises) {
+    totalSeconds += exercise.exercise_duration += exercise.rest_duration;
+    exerciseCount++;
+  }
+  return { duration: convertStoMs(totalSeconds), exerciseCount };
+}
+
+// Fetch the screen content from the server for a specific screen
 async function fetchScreenContent(screen) {
   const url = `/screens/${screen}.inc`;
   const response = await fetch(url);
@@ -221,6 +244,7 @@ async function fetchScreenContent(screen) {
   }
 }
 
+// Get the screen content for all pages and append it to the respective screens
 async function getScreenContent() {
   for (const page of pages) {
     const content = await fetchScreenContent(page.screen);
@@ -230,23 +254,7 @@ async function getScreenContent() {
   }
 }
 
-// Modify calcHiitInfo function to utilize convertStoMs
-async function calcHiitInfo(clickedHiit) {
-  const exercise = await getAllExercises();
-  const filteredExercises = exercise.filter(
-    (exercise) => exercise.hiit_id === clickedHiit,
-  );
-  let totalSeconds = 0;
-  let exerciseCount = 0;
-
-  for (const exercise of filteredExercises) {
-    totalSeconds += exercise.exercise_duration += exercise.rest_duration;
-
-    exerciseCount++;
-  }
-  return { duration: convertStoMs(totalSeconds), exerciseCount };
-}
-
+// Convert seconds to minutes and seconds format (e.g. 5:30)
 export function convertStoMs(seconds) {
   let minutes = Math.floor(seconds / 60);
   let extraSeconds = seconds % 60;
@@ -255,6 +263,7 @@ export function convertStoMs(seconds) {
   return `${minutes}:${extraSeconds}`;
 }
 
+// Fetch all HIITs from the server
 export async function getAllHiits() {
   const response = await fetch('/hiits');
   let hiits;
@@ -267,10 +276,9 @@ export async function getAllHiits() {
   }
 }
 
+// Populate the HIIT cards in the UI with data from the server
 export async function populateHiitCards(hiits) {
   const defaultHiitCards = document.querySelector('.default-hiit-card');
-
-  // Clear existing HIITs
   defaultHiitCards.innerHTML = '';
 
   for (const hiit of hiits) {
@@ -290,7 +298,6 @@ export async function populateHiitCards(hiits) {
     const deleteIcon = document.createElement('button');
     deleteIcon.classList.add('delete-icon');
 
-    // Append SVG icon
     const svgIcon = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'svg',
@@ -314,7 +321,6 @@ export async function populateHiitCards(hiits) {
       buildHiitExercisePage(hiit.hiits_id);
     });
     handleDeleteEvent(deleteIcon, hiit);
-    // Determine where to append the HIIT card based on its type
     checkHiitType(
       hiit,
       defaultHiitCards,
@@ -327,6 +333,7 @@ export async function populateHiitCards(hiits) {
   initi();
 }
 
+// Check the type of HIIT and append it to the appropriate container
 function checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, svgIcon) {
   if (hiit.type === 'default') {
     defaultHiitCards.append(section);
@@ -338,6 +345,7 @@ function checkHiitType(hiit, defaultHiitCards, section, hiitInfo, deleteIcon, sv
   }
 }
 
+// Handle the delete event for a HIIT card
 function handleDeleteEvent(deleteIcon, hiit) {
   deleteIcon.addEventListener('click', function (event) {
     event.stopPropagation();
@@ -345,13 +353,13 @@ function handleDeleteEvent(deleteIcon, hiit) {
   });
 }
 
+// Build the HIIT exercise page with data from the server
 export async function buildHiitExercisePage(clickedHiit) {
   document.querySelector('.hiit-exercises').innerHTML = '';
   showScreen('Hiit');
   const hiits = await getAllHiits();
   const { duration, exerciseCount } = await calcHiitInfo(clickedHiit);
 
-  // Find the clicked HIIT object
   const clickedHiitObj = hiits.find((hiit) => hiit.hiits_id === clickedHiit);
 
   const hiitTitle = document.querySelector('.hiitpage-title');
@@ -377,8 +385,6 @@ export async function buildHiitExercisePage(clickedHiit) {
   startHiitBtn.classList.add('start-hiit');
   startHiitBtn.textContent = 'Start Hiit';
   startHiitBtn.addEventListener('click', function () {
-    // storeState();
-    // ui.currentScreen = 'PerformHiit';
     ui.previousScreen = 'Hiit';
     ui.title.textContent = clickedHiitObj.name;
     start(clickedHiit);
@@ -391,6 +397,7 @@ export async function buildHiitExercisePage(clickedHiit) {
   return hiitName;
 }
 
+// Handle the exercise cards on the HIIT exercise page
 function handleExerciseCards(filteredExercises) {
   filteredExercises.forEach((exercise) => {
     const exerciseCard = document.createElement('section');
@@ -420,11 +427,9 @@ function handleExerciseCards(filteredExercises) {
 
     document.querySelector('.hiit-exercises').append(exerciseCard);
 
-    // Set default SVG content for drop-down
     dropDown.innerHTML =
       '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
 
-    // Conditionally update drop-down content when clicked
     exerciseCard.addEventListener('click', function () {
       content.classList.toggle('hidden');
       toggleDropdownIcon(content, dropDown);
@@ -433,9 +438,9 @@ function handleExerciseCards(filteredExercises) {
   });
 }
 
+// Toggle the dropdown icon based on the content visibility
 function toggleDropdownIcon(content, dropDown) {
   if (content.scrollHeight > 1) {
-    // Create SVG element with alternative path
     const svg = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'svg',
@@ -445,7 +450,6 @@ function toggleDropdownIcon(content, dropDown) {
     svg.setAttribute('viewBox', '0 -960 960 960');
     svg.setAttribute('width', '24px');
     svg.setAttribute('fill', '#e8eaed');
-    // Create alternative path element
     const path = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'path',
@@ -454,18 +458,16 @@ function toggleDropdownIcon(content, dropDown) {
       'd',
       'm296-345-56-56 240-240 240 240-56 56-184-184-184 184Z',
     );
-    // Append alternative path to SVG
     svg.appendChild(path);
-    // Clear previous content and append SVG to drop-down
     dropDown.innerHTML = '';
     dropDown.appendChild(svg);
   } else {
-    // Default SVG content
     dropDown.innerHTML =
       '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>';
   }
 }
 
+// Handle the dropdown behavior when clicked
 function handleDropdown(content) {
   if (content.classList.contains('hidden')) {
     content.style.maxHeight = null;
@@ -474,11 +476,13 @@ function handleDropdown(content) {
   }
 }
 
+// Fetch all assets (HIITs and exercises) from the server
 export async function getAssets() {
   await getAllHiits();
   await getAllExercises();
 }
 
+// Set up the application
 function setup() {
   getHandles();
   buildScreens();

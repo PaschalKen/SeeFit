@@ -1,6 +1,7 @@
 import { convertStoM, calculateTotalHiitDuration, exercisesArray } from './timer.js';
 import { getAllHiits } from './script.js';
 
+// This file contains functions related to recording and handling completed HIITs in a web application.
 
 let totalhiits = 0;
 let completedExerciseCount = 0;
@@ -12,12 +13,14 @@ function countCompletedHiits() {
   totalhiits += 1;
 }
 
+// Function to handle completion of a HIIT
 export function handleCompleteHiit() {
   countCompletedHiits();
   completedHiitDetails(exercisesArray);
   populateDashboard();
 }
 
+// Function to calculate and store details of a completed HIIT
 function completedHiitDetails(hiit) {
   const completedHiitDuration = calculateTotalHiitDuration(hiit);
   completedTime += completedHiitDuration;
@@ -25,11 +28,13 @@ function completedHiitDetails(hiit) {
   getCompletedHiitName(exercisesArray, completedHiitDuration);
 }
 
+// Function to get the count of exercises in a HIIT
 function getExerciseCount(hiit) {
   const exerciseCount = hiit.length;
   completedExerciseCount += exerciseCount;
 }
 
+// Function to get the name of a completed HIIT and display it on the dashboard
 async function getCompletedHiitName(exercisesArray, completedDuration) {
   const hiitId = exercisesArray[0].hiit_id;
   const hiits = await getAllHiits();
@@ -49,7 +54,7 @@ async function getCompletedHiitName(exercisesArray, completedDuration) {
   completedHiits.appendChild(section);
 }
 
-// Function to populate the dashboard
+// Function to populate the dashboard with total HIITs, total time, and total exercises
 function populateDashboard() {
   const totalHiitsElem = document.querySelector('.total-hiits');
   const totalDurationElem = document.querySelector('.total-time');

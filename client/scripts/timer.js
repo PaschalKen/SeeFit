@@ -1,6 +1,7 @@
 import { getAllExercises, showScreen } from './script.js';
-
 import { handleCompleteHiit } from './record.js';
+
+// Import necessary functions from other files
 
 // Global variables
 let exercisesArray = [];
@@ -10,17 +11,30 @@ let hiitElapsedTime = 0;
 let totalHiitDuration = 0;
 let intervalId = null;
 
+// Store the paused state of the timer
 let pausedState = {
   elapsedTime: 0,
   currentExerciseIndex: 0,
 };
 
-export { exercisesArray, currentExerciseIndex, exerciseElapsedTime, hiitElapsedTime, totalHiitDuration, intervalId, pausedState };
+// Export necessary variables
+export {
+  exercisesArray,
+  currentExerciseIndex,
+  exerciseElapsedTime,
+  hiitElapsedTime,
+  totalHiitDuration,
+  intervalId,
+  pausedState,
+};
 
+// Object to store timer elements
 const timerElem = {};
 
+// Increment value for timer
 const increment = 1;
 
+// Function to get timer handles
 function getTimerHandles() {
   timerElem.currentExercise = document.querySelector('.current-exercise');
   timerElem.nextExercise = document.querySelector('.next-exercise');
@@ -30,10 +44,10 @@ function getTimerHandles() {
   timerElem.playButton = document.querySelector('.play');
   timerElem.stateInfo = document.querySelector('.state-info');
   timerElem.restartButton = document.querySelector('.restart');
-  timerElem.stateInfo = document.querySelector('.state-info');
   timerElem.progressBar = document.querySelector('.timer-progress-holder');
 }
 
+// Create an audio object for timer sound
 const sound = new Audio('../media/audio/timer.ogg');
 
 // Timer running function
@@ -59,8 +73,7 @@ function timerRunning() {
   moveToNextActivity(currentExercise);
 }
 
-// import { ui } from './script.js';
-
+// Function to check if the screen is left
 export function checkIfScreenIsLeft(currentScreen, newScreen) {
   if (currentScreen === 'PerformHiit' && newScreen !== 'PerformHiit') {
     // Reset the necessary variables here
@@ -70,6 +83,7 @@ export function checkIfScreenIsLeft(currentScreen, newScreen) {
   }
 }
 
+// Function to reset HIIT data
 export function resetHiitData() {
   // Reset the timer-related variables
   exercisesArray = [];
@@ -88,6 +102,7 @@ function resetTimer() {
   timerElem.timer.textContent = '00:00';
 }
 
+// Function to convert seconds to minutes format
 export function convertStoM(time) {
   const isNegative = time < 0;
   const absTime = Math.abs(time);
@@ -195,6 +210,7 @@ function resumeTimer() {
   intervalId = setInterval(timerRunning, 1000);
 }
 
+// Function to stop the timer and restart
 function stopTimer() {
   if (timerElem.pauseButton.classList.contains('hidden')) {
     timerElem.playButton.classList.add('hidden');

@@ -1,8 +1,9 @@
 const ui = {};
 
+// Function to delete a HIIT
 export async function deleteHiit(hiit) {
   const toBeDeleted = document.querySelector(
-    `.${hiit.name.replace(/\s+/g, '')}`
+    `.${hiit.name.replace(/\s+/g, '')}`,
   );
   const response = await fetch(`/hiits/${hiit.hiits_id}`, {
     method: 'DELETE',
@@ -15,9 +16,10 @@ export async function deleteHiit(hiit) {
   }
 }
 
+// Function to remove a HIIT before deleting
 export function removeHiitBeforeDelete(hiit, event) {
   const toBeDeleted = document.querySelector(
-    `.${hiit.name.replace(/\s+/g, '')}`
+    `.${hiit.name.replace(/\s+/g, '')}`,
   );
   event.stopPropagation();
   if (!toBeDeleted) {
@@ -27,6 +29,7 @@ export function removeHiitBeforeDelete(hiit, event) {
   ui.eventInfo = document.querySelector('.event-info');
 }
 
+// Function to create a delete popup for a HIIT
 export function createDeletePopup(hiit) {
   const confirmDelete = document.querySelector('.confirm-delete');
   const overlay = document.createElement('section');
@@ -47,7 +50,7 @@ export function createDeletePopup(hiit) {
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   path.setAttribute(
     'd',
-    'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'
+    'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z',
   );
 
   svg.appendChild(path);
@@ -97,6 +100,7 @@ export function createDeletePopup(hiit) {
   document.body.appendChild(confirmDelete);
 }
 
+// Function to close the delete popup
 function closePopup() {
   const Popup = document.querySelector('.card-body');
   Popup.remove();
@@ -104,5 +108,3 @@ function closePopup() {
   const overlay = document.querySelector('.overlay');
   overlay.parentNode.removeChild(overlay);
 }
-
-
