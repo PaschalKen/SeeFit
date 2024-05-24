@@ -18,6 +18,7 @@ A high-intensity interval training (HIIT) app that enables users to create and p
 - [Database](#database)
 - [Improvements since first draft](#improvements)
 - [AI](#Ai)
+- [References](#references)
 
 
 
@@ -72,7 +73,7 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
     - I chose to implement a `count-down timer` to let the users know how long they have left in an activity.
     - The timer section has a border which is a `progress bar`. This helps the user keep track what they've completed and what they have left in the entire hiit.
     - The `green` area signifies the completed part while the `white` area signifies what's left to be done. This was implemented to keep the user informed of their progress always.
-    - There are visibe exit, pause/play, and restart buttons under the progress bar which users can click to leave the perform hiit page, pause/ continue a hiit, and restart a hiit respectively giving them complete control and freedom while using the app. When any of these buttons is clicked, a text fades in for 3 seconds to as well as the Nielsen's 1st usability Heuristic which suggests "visibility of system status" respectively. 
+    - There are visibe pause/play and restart buttons under the progress bar which users can click to pause/ continue a hiit, and restart a hiit respectively giving them complete control and freedom while using the app. When any of these buttons is clicked, a text fades in for 3 seconds to as well as the Nielsen's 1st usability Heuristic which suggests "visibility of system status" respectively. 
 
 ### Creating a Hiit
 
@@ -106,13 +107,14 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 ### Viewing Hiit history/record
 - Navigate to the dashboard section
     - The dashboard provides the following information:
-    - `Total time spent doing hiits` which has a yellow border color
-    - `Number of Hiits completed` which has a purple border color 
-    - `Number of Exercises completed` which has a purple border color
+    - `Total time spent doing hiits` which has a yellow border color.
+    - `Number of Hiits completed` which has a purple border color.
+    - `Number of Exercises completed` which has a purple border color.
     - A `finished Hiits` section that displays the `name` and `duration` of each completed hiit.
+    - The data is store to the local storage so each user cann see their personalised records.
 
 ### Installing `SeeFit` as a Progressive Web App
-- Open your browser and navigate to the URL where the web app is hosted
+- Open your browser and navigate to the URL where the web app is hosted.
 
 - In the browser `address bar`, you will see a `desktop-like icon`. Click on that icon to access the installation options.
 
@@ -125,11 +127,11 @@ Open a browser page and type in - `localhost:8080` to load the initial page of t
 - I chose to make the project a progressive web app to provide users ability to install the app on their device, providing a one-tap access just like traditional apps. By implementing this, I have been able to deliver an app-like experience to the users within the browser, offering convinient, efficient, and easy way to access and use the app.  Making this app a Progressive Web App adheres to Jakob Nielsen's "Match Between System and the Real World" heuristic by delivering a native app-like capabilities within the browser environment allows PWAs to speak the users' language and follow real-world conventions, reducing cognitive load and enhancing usability.
 
 ### Toggling Theme
-- You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app
+- You can toggle between `Light mode` and `dark mode` by clicking on the icon at the top right corner of the app.
 
 ### Audio Cues
 - I implemented audio cue using a sound I created with my voice on audacity. This can help significantly enhance the user experience of SeeFit by providing pace and cadence for exercises that involve rhythmic movements such as jumping jacks or mountain jacks to keep users engaged through out the activity. With this being implemented, the users do not constantly have to stare at their device to check for time as they know the exercise time has elapsed when the audio cue sound stops. This aligns with the Nielsen's 1st usability Heuristic which suggests "visibility of system status" as the system always keeps users informed about what's going on in the app.
-
+- The user has the ability to mute and unmute the audio cue if they desire.
 
 ## Project Structure
 
@@ -206,7 +208,16 @@ This web app was developed using `SQLite` to store Hiit data. This is because SQ
 ## AI
 
 - I utilised Ai to generate appropriate comments for my functions.
+- 
 
+## References
+- ChatGPT. (n.d.). Openai.com. https://www.openai.com/chatgpt
+
+- Google. (n.d.). Google Fonts. Google Fonts. https://fonts.google.com/icons
+
+
+
+‌
 
 
 

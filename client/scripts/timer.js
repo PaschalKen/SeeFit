@@ -52,25 +52,54 @@ const sound = new Audio('../media/audio/timer.ogg');
 
 // Timer running function
 function timerRunning() {
-  // Check if hiit is completed
   if (hiitElapsedTime === totalHiitDuration) {
     clearInterval(intervalId);
     handleCompleteHiit();
     resetTimer();
     resetHiitData();
+    return;
   }
   sound.play();
+
   const currentExercise = exercisesArray[currentExerciseIndex];
   const nextExercise = exercisesArray[currentExerciseIndex + 1];
 
+  if (!currentExercise) {
+    console.error('Current exercise is undefined');
+    return;
+  }
+
   const currentExerciseName = currentExercise.name;
-  const nextExerciseName = nextExercise ? nextExercise.name : 'Complete';
   const currentExerciseDescription = currentExercise.description;
+  const nextExerciseName = nextExercise ? nextExercise.name : 'Complete';
 
   timerElem.currentExercise.textContent = currentExerciseName;
   timerElem.exerciseDescription.textContent = currentExerciseDescription;
   timerElem.nextExercise.textContent = 'Next: ' + nextExerciseName;
+
   moveToNextActivity(currentExercise);
+}
+
+//on and off audio cue
+function togglePlayPause() {
+  const toggleSwitch = document.querySelector('.toggle-input');
+  toggleSwitch.addEventListener('change', function () {
+    if (toggleSwitch.checked) {
+      sound.muted = true;
+        timerElem.stateInfo.textContent = 'Muted';
+        timerElem.stateInfo.style.opacity = '1';
+        setTimeout(() => {
+          timerElem.stateInfo.style.opacity = '0';
+        }, 3000);
+    } else {
+      sound.muted = false;
+        timerElem.stateInfo.textContent = 'Unmuted';
+        timerElem.stateInfo.style.opacity = '1';
+        setTimeout(() => {
+          timerElem.stateInfo.style.opacity = '0';
+        }, 3000);
+    }
+  });
 }
 
 // Function to check if the screen is left
@@ -79,7 +108,6 @@ export function checkIfScreenIsLeft(currentScreen, newScreen) {
     // Reset the necessary variables here
     resetHiitData();
     clearInterval(intervalId);
-    // Any other reset logic you need
   }
 }
 
@@ -143,11 +171,9 @@ function moveToNextActivity(currentExercise) {
 
     timerElem.timer.textContent = convertStoM(remainingTime);
     if (exerciseElapsedTime >= actualExerciseDuration) {
-      // sound.pause();
       timerElem.currentExercise.textContent = 'Rest';
       timerElem.exerciseDescription.textContent = `Take a ${actualRestDuration} Second rest`;
     } else {
-      // sound.play();
       timerElem.currentExercise.textContent = currentExercise.name;
       timerElem.exerciseDescription.textContent = currentExercise.description;
     }
@@ -255,4 +281,5 @@ export async function start(clickedHiit) {
     intervalId = setInterval(timerRunning, 1000);
     addEventListeners();
   }
+  togglePlayPause();
 }

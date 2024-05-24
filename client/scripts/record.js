@@ -37,6 +37,7 @@ export function handleCompleteHiit() {
   countCompletedHiits();
   completedHiitDetails(exercisesArray);
   populateDashboard();
+  renderCompletedHiits();
   saveData();
 }
 
@@ -45,7 +46,7 @@ function completedHiitDetails(hiit) {
   const completedHiitDuration = calculateTotalHiitDuration(hiit);
   completedTime += completedHiitDuration;
   getExerciseCount(hiit);
-  getCompletedHiitName(exercisesArray, completedHiitDuration);
+  getCompletedHiitName(hiit, completedHiitDuration);
 }
 
 // Function to get the count of exercises in a HIIT
@@ -54,26 +55,30 @@ function getExerciseCount(hiit) {
   completedExerciseCount += exerciseCount;
 }
 
-// Function to get the name of a completed HIIT and render it
+// Function to get the name of a completed HIIT and store it
 async function getCompletedHiitName(exercisesArray, completedDuration) {
   const hiitId = exercisesArray[0].hiit_id;
   const hiits = await getAllHiits();
   const completedHiit = hiits.find((hiit) => hiit.hiits_id === hiitId);
-  const completedHiits = document.querySelector('.finished-hiits-holder');
-  const section = document.createElement('section');
-  const completedHiitTitle = document.createElement('h3');
-  completedHiitTitle.textContent = completedHiit.name;
-  const completedHiitDuration = document.createElement('p');
-  completedHiitDuration.textContent = convertStoM(completedDuration);
-  section.classList.add('completed-hiit');
-  section.append(completedHiitTitle, completedHiitDuration);
-  completedHiits.appendChild(section);
-
   const hiitData = {
     name: completedHiit.name,
     duration: convertStoM(completedDuration),
   };
   completedHiits.push(hiitData);
+  renderCompletedHiitElement(hiitData);
+}
+
+// Function to render a completed HIIT element
+function renderCompletedHiitElement(hiitData) {
+  const completedHiitsHolder = document.querySelector('.finished-hiits-holder');
+  const section = document.createElement('section');
+  const completedHiitTitle = document.createElement('h3');
+  completedHiitTitle.textContent = hiitData.name;
+  const completedHiitDuration = document.createElement('p');
+  completedHiitDuration.textContent = hiitData.duration;
+  section.classList.add('completed-hiit');
+  section.append(completedHiitTitle, completedHiitDuration);
+  completedHiitsHolder.appendChild(section);
 }
 
 // Function to populate the dashboard with total HIITs, total time, and total exercises

@@ -432,7 +432,7 @@ main .screen article .savedHiits .records-holder section .total-time {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.44em;
+  font-size: 1.7em;
 }
 
 .light-mode
@@ -451,12 +451,11 @@ main .screen article .savedHiits .records-holder section .total-exercises {
   border-radius: 50%;
   text-align: center;
   border: 0.31em solid purple;
-
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.44em;
+  font-size: 1.48em;
 }
 
 .light-mode
@@ -476,12 +475,11 @@ main .screen article .savedHiits .records-holder section .total-hiits {
   border-radius: 50%;
   text-align: center;
   border: 0.31em solid blue;
-
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.44em;
+  font-size: 1.48em;
 }
 
 .light-mode
@@ -496,8 +494,8 @@ main .screen article .savedHiits .records-holder section .total-hiits {
 }
 
 main .screen article .savedHiits .records-holder section .span {
-  font-size: 0.75em;
-  padding-top: 0.5em;
+  font-size: 0.55em;
+  padding-top: 0.8em;
   padding-left: 0.19em;
 }
 
@@ -548,6 +546,8 @@ main .screen article .exercise-section .next-exercise {
 
 main .screen article .perform-hiit .timer-buttons {
   text-align: center;
+  margin-left: 9em;
+  margin-top: -4em;
 }
 
 main .screen article .perform-hiit .timer-buttons .pause,
@@ -555,7 +555,7 @@ main .screen article .perform-hiit .timer-buttons .play {
   fill: white;
   height: 10em;
   width: 5em;
-  margin-left: 5em;
+  margin-left: -3em;
 }
 
 .light-mode main .screen article .perform-hiit .timer-buttons .pause,
@@ -825,4 +825,18 @@ label {
 
 .popup .close-icon:hover {
   opacity: 0.5;
+}
+
+section .timer-buttons .switch .toggle-input {
+  height: 2em;
+  width: 7em;
+  /* position: relative;
+  left: -1em;
+  bottom: 5em; */
+}
+
+section .timer-buttons .switch {
+  position: relative;
+    left: -11em;
+    bottom: -7em;
 }

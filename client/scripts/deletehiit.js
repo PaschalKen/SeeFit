@@ -11,7 +11,7 @@ export async function deleteHiit(hiit) {
   if (response.ok) {
     toBeDeleted.remove();
   } else {
-    console.log('Failed to delete HIIT', response);
+    console.error('Failed to delete HIIT', response);
     toBeDeleted.style.display = 'grid';
   }
 }

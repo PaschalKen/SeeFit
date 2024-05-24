@@ -114,7 +114,7 @@ async function sendHiitData() {
       createForm.eventInfo.style.opacity = '0';
     }, 3000);
   } else {
-    console.log('Failed to create HIIT', responseHiit);
+    console.error('Failed to create HIIT', responseHiit);
   }
 }
 
