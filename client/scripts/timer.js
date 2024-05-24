@@ -143,11 +143,11 @@ function moveToNextActivity(currentExercise) {
 
     timerElem.timer.textContent = convertStoM(remainingTime);
     if (exerciseElapsedTime >= actualExerciseDuration) {
-      sound.pause();
+      // sound.pause();
       timerElem.currentExercise.textContent = 'Rest';
       timerElem.exerciseDescription.textContent = `Take a ${actualRestDuration} Second rest`;
     } else {
-      sound.play();
+      // sound.play();
       timerElem.currentExercise.textContent = currentExercise.name;
       timerElem.exerciseDescription.textContent = currentExercise.description;
     }
